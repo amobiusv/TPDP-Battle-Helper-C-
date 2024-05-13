@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using TPDP_Battle_Helper.libraries;
+using TPDP_Battle_Helper.Libraries;
 
 namespace TPDP_Battle_Helper
 {

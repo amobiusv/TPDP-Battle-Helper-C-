@@ -1,9 +1,9 @@
-﻿<Window x:Name="window" x:Class="TPDP_Battle_Helper.MainWindow"
+﻿<Window x:Name="window" x:Class="TPDP_Battle_Helper.Views.BattleMain"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TPDP_Battle_Helper"
+        xmlns:local="clr-namespace:TPDP_Battle_Helper.Views"
         mc:Ignorable="d"
         Title="TPDP Battle Helper" Height="400" Width="600" ResizeMode="NoResize">
     <Window.Background>
