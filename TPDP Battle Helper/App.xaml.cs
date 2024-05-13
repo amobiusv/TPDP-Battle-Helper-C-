@@ -2,6 +2,8 @@
 using System.Data;
 using System.Drawing;
 using System.Windows;
+using TPDP_Battle_Helper.Data;
+using TPDP_Battle_Helper.Data.Dex;
 
 namespace TPDP_Battle_Helper
 {
@@ -11,11 +13,17 @@ namespace TPDP_Battle_Helper
     public partial class App : Application
     {
 
+        public static double ASPECT_RATIO = 16d / 9d;
+        public static int TITLE_BAR_HEIGHT = 32;
+
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Populate Data
+            ElementalType.Init();
+            PuppetDex.Init();
+
+            // Hook to the game
             GameHook.Init("TPDP Shard of Dreams");
-            Rectangle rect = GameHook.FindGameBounds();
-            short allyId = GameHook.ReadAddress(0xC59FDB, 2).Select(b => (short)b).ToArray()[0];
 
             base.OnStartup(e);
         }

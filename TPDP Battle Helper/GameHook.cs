@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using TPDP_Battle_Helper.libraries;
+using TPDP_Battle_Helper.Libraries;
 
 namespace TPDP_Battle_Helper
 {
@@ -79,7 +79,7 @@ namespace TPDP_Battle_Helper
             Rectangle rect = new Rectangle();
             GetWindowRect(gameProcess.MainWindowHandle, out rect);
 
-            return rect;
+            return new Rectangle(rect.Left, rect.Top, rect.Width - rect.Left, rect.Height - rect.Top);
         }
 
         public static byte[] ReadAddress(uint address, uint length)

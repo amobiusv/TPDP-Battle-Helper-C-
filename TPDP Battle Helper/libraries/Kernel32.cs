@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace TPDP_Battle_Helper.libraries
+namespace TPDP_Battle_Helper.Libraries
 {
     internal class Kernel32
     {

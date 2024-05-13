@@ -8,6 +8,28 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Config\Puppets.xml" />
+    <None Remove="Resources\**\*" />
+    <None Remove="Views\background_blue.png" />
+    <None Remove="Views\type_dream.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Config\Puppets.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\background_blue.png" />
+    <Resource Include="Views\type_dream.png" />
+  </ItemGroup>
 
 </Project>

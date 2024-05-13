@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<puppets>
+
+  <!-- REMILIA -->
+
+  <puppet name="REMILIA" id="0x002C">
+    <name>Remilia</name>
+    <internalId>0x002C</internalId>
+    <dexId>39</dexId>
+    <cost>120</cost>
+    <styles>
+      
+      <style name="NORMAL" id="0">
+        <type1>DARK</type1>
+        <type2>WIND</type2>
+        <ability1>VANISHING_ACT</ability1>
+        <ability2>FINAL_FORM</ability2>
+        <baseStats>
+          <HP>40</HP>
+          <FAtk>60</FAtk>
+          <FDef>35</FDef>
+          <SAtk>70</SAtk>
+          <SDef>40</SDef>
+          <Spd>70</Spd>
+        </baseStats>
+      </style>
+      
+      <style name="POWER" id="1">
+        <type1>DARK</type1>
+        <type2>WIND</type2>
+        <ability1>VANISHING_ACT</ability1>
+        <ability2>CHARGE</ability2>
+        <baseStats>
+          <HP>75</HP>
+          <FAtk>115</FAtk>
+          <FDef>60</FDef>
+          <SAtk>120</SAtk>
+          <SDef>60</SDef>
+          <Spd>110</Spd>
+        </baseStats>
+      </style>
+
+      <style name="SPEED" id="2">
+        <type1>DARK</type1>
+        <type2>FIGHTING</type2>
+        <ability1>VANISHING_ACT</ability1>
+        <ability2>FINAL_FORM</ability2>
+        <baseStats>
+          <HP>70</HP>
+          <FAtk>70</FAtk>
+          <FDef>80</FDef>
+          <SAtk>110</SAtk>
+          <SDef>80</SDef>
+          <Spd>130</Spd>
+        </baseStats>
+      </style>
+
+      <style name="EXTRA" id="3">
+        <type1>POISON</type1>
+        <type2>WATER</type2>
+        <ability1>PRIDE</ability1>
+        <ability2>FOG_TRAVELER</ability2>
+        <baseStats>
+          <HP>90</HP>
+          <FAtk>60</FAtk>
+          <FDef>100</FDef>
+          <SAtk>115</SAtk>
+          <SDef>75</SDef>
+          <Spd>100</Spd>
+        </baseStats>
+      </style>
+      
+    </styles>
+  </puppet>
+  
+</puppets>
