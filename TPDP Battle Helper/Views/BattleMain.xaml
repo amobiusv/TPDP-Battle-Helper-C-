@@ -13,10 +13,34 @@
         <Grid x:Name="main_left" Width="160" HorizontalAlignment="Left">
             <Image x:Name="player_type1" Source="/Views/type_dream.png" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80"/>
             <Image x:Name="player_type2" Source="/Views/type_dream.png" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Margin="0,50,0,0"/>
+            <StackPanel x:Name="player_weaknesses" VerticalAlignment="Top" Margin="0,100,0,0">
+                <Label x:Name="player_super_weak_label" Content="Super weak to:"/>
+                <WrapPanel x:Name="player_super_weak"/>
+                <Label x:Name="player_weak_label" Content="Weak to:"/>
+                <WrapPanel x:Name="player_weak"/>
+                <Label x:Name="player_resistant_label" Content="Resistant to:"/>
+                <WrapPanel x:Name="player_resistant"/>
+                <Label x:Name="player_super_resistant_label" Content="Super resistant to:"/>
+                <WrapPanel x:Name="player_super_resistant"/>
+                <Label x:Name="player_immune_label" Content="Immune to:"/>
+                <WrapPanel x:Name="player_immune"/>
+            </StackPanel>
         </Grid>
         <Grid x:Name="main_right" Width="160" HorizontalAlignment="Right">
             <Image x:Name="enemy_type1" Source="/Views/type_dream.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80"/>
             <Image x:Name="enemy_type2" Source="/Views/type_dream.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="0,50,0,0"/>
+            <StackPanel x:Name="enemy_weaknesses" VerticalAlignment="Top" Margin="0,100,0,0">
+                <Label x:Name="enemy_super_weak_label" Content="Super weak to:"/>
+                <WrapPanel x:Name="enemy_super_weak"/>
+                <Label x:Name="enemy_weak_label" Content="Weak to:"/>
+                <WrapPanel x:Name="enemy_weak"/>
+                <Label x:Name="enemy_resistant_label" Content="Resistant to:"/>
+                <WrapPanel x:Name="enemy_resistant"/>
+                <Label x:Name="enemy_super_resistant_label" Content="Super resistant to:"/>
+                <WrapPanel x:Name="enemy_super_resistant"/>
+                <Label x:Name="enemy_immune_label" Content="Immune to:"/>
+                <WrapPanel x:Name="enemy_immune"/>
+            </StackPanel>
         </Grid>
 
     </Grid>

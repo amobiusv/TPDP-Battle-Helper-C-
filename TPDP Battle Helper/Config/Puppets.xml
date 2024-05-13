@@ -73,5 +73,77 @@
       
     </styles>
   </puppet>
+
+  <!-- LUNA -->
+
+  <puppet name="LUNA" id="0x0046">
+    <name>Luna</name>
+    <internalId>0x0046</internalId>
+    <dexId>65</dexId>
+    <cost>80</cost>
+    <styles>
+
+      <style name="NORMAL" id="0">
+        <type1>LIGHT</type1>
+        <type2>WIND</type2>
+        <ability1>FLASH</ability1>
+        <ability2>SOUND_ABSORB</ability2>
+        <baseStats>
+          <HP>35</HP>
+          <FAtk>30</FAtk>
+          <FDef>35</FDef>
+          <SAtk>60</SAtk>
+          <SDef>40</SDef>
+          <Spd>70</Spd>
+        </baseStats>
+      </style>
+
+      <style name="POWER" id="1">
+        <type1>LIGHT</type1>
+        <type2>WIND</type2>
+        <ability1>FLASH</ability1>
+        <ability2>SOUND_ABSORB</ability2>
+        <baseStats>
+          <HP>100</HP>
+          <FAtk>30</FAtk>
+          <FDef>65</FDef>
+          <SAtk>120</SAtk>
+          <SDef>75</SDef>
+          <Spd>80</Spd>
+        </baseStats>
+      </style>
+
+      <style name="SPEED" id="2">
+        <type1>LIGHT</type1>
+        <type2>SOUND</type2>
+        <ability1>SANGUINE</ability1>
+        <ability2>SOUND_ABSORB</ability2>
+        <baseStats>
+          <HP>80</HP>
+          <FAtk>40</FAtk>
+          <FDef>65</FDef>
+          <SAtk>90</SAtk>
+          <SDef>70</SDef>
+          <Spd>125</Spd>
+        </baseStats>
+      </style>
+
+      <style name="EXTRA" id="3">
+        <type1>SOUND</type1>
+        <type2>WARPED</type2>
+        <ability1>SKILLED_HAND</ability1>
+        <ability2>HEALING_POWER</ability2>
+        <baseStats>
+          <HP>75</HP>
+          <FAtk>95</FAtk>
+          <FDef>120</FDef>
+          <SAtk>40</SAtk>
+          <SDef>100</SDef>
+          <Spd>40</Spd>
+        </baseStats>
+      </style>
+
+    </styles>
+  </puppet>
   
 </puppets>

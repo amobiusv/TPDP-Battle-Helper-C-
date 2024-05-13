@@ -38,6 +38,14 @@ namespace TPDP_Battle_Helper.Data
 
         public static ElementalType[] ALL = [DREAM, VOID, FIRE, WATER, NATURE, EARTH, STEEL, WIND, ELECTRIC, LIGHT, DARK, NETHER, POISON, FIGHTING, ILLUSION, SOUND, WARPED];
 
+        public class ElementalTypeComparer : Comparer<ElementalType>
+        {
+            public override int Compare(ElementalType x, ElementalType y)
+            {
+                return x.Id.CompareTo(y.Id);
+            }
+        }
+        
         public static void Init()
         {
 
