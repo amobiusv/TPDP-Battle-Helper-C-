@@ -14,8 +14,6 @@
   <ItemGroup>
     <None Remove="Config\Puppets.xml" />
     <None Remove="Resources\**\*" />
-    <None Remove="Views\background_blue.png" />
-    <None Remove="Views\type_dream.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,11 +23,6 @@
     <Content Include="Resources\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Views\background_blue.png" />
-    <Resource Include="Views\type_dream.png" />
   </ItemGroup>
 
 </Project>

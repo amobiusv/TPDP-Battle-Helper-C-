@@ -7,12 +7,17 @@
         mc:Ignorable="d"
         Title="TPDP Battle Helper" Height="400" Width="600" ResizeMode="NoResize">
     <Window.Background>
-        <ImageBrush Stretch="None" TileMode="Tile" ImageSource="/Views/background_blue.png" ViewportUnits="Absolute" Viewport="0,0,64,64"/>
+        <VisualBrush TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute">
+            <VisualBrush.Visual>
+                <Image Source="/Resources/UI/background_blue.png"></Image>
+            </VisualBrush.Visual>
+        </VisualBrush>
     </Window.Background>
     <Grid>
+
         <Grid x:Name="main_left" Width="160" HorizontalAlignment="Left">
-            <Image x:Name="player_type1" Source="/Views/type_dream.png" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80"/>
-            <Image x:Name="player_type2" Source="/Views/type_dream.png" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Margin="0,50,0,0"/>
+            <Image x:Name="player_type1" Source="/Resources/Types/type_dream.png" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80"/>
+            <Image x:Name="player_type2" Source="/Resources/Types/type_dream.png" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Margin="0,50,0,0"/>
             <StackPanel x:Name="player_weaknesses" VerticalAlignment="Top" Margin="0,100,0,0">
                 <Label x:Name="player_super_weak_label" Content="Super weak to:"/>
                 <WrapPanel x:Name="player_super_weak"/>
@@ -25,10 +30,24 @@
                 <Label x:Name="player_immune_label" Content="Immune to:"/>
                 <WrapPanel x:Name="player_immune"/>
             </StackPanel>
+            <Grid x:Name="player_stats" VerticalAlignment="Bottom">
+                <Image x:Name="player_stat_hp_label" Source="/Resources/Stats/stat_hp.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Margin="0,0,0,100"/>
+                <Rectangle x:Name="player_stat_hp_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,105"/>
+                <Image x:Name="player_stat_fatk_label" Source="/Resources/Stats/stat_fatk.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Margin="0,0,0,80"/>
+                <Rectangle x:Name="player_stat_fatk_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,85"/>
+                <Image x:Name="player_stat_fdef_label" Source="/Resources/Stats/stat_fdef.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Margin="0,0,0,60"/>
+                <Rectangle x:Name="player_stat_fdef_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,65"/>
+                <Image x:Name="player_stat_satk_label" Source="/Resources/Stats/stat_satk.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Margin="0,0,0,40"/>
+                <Rectangle x:Name="player_stat_satk_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,45"/>
+                <Image x:Name="player_stat_sdef_label" Source="/Resources/Stats/stat_sdef.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Margin="0,0,0,20"/>
+                <Rectangle x:Name="player_stat_sdef_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,25"/>
+                <Image x:Name="player_stat_speed_label" Source="/Resources/Stats/stat_spe.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20"/>
+                <Rectangle x:Name="player_stat_speed_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,5"/>
+            </Grid>
         </Grid>
         <Grid x:Name="main_right" Width="160" HorizontalAlignment="Right">
-            <Image x:Name="enemy_type1" Source="/Views/type_dream.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80"/>
-            <Image x:Name="enemy_type2" Source="/Views/type_dream.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="0,50,0,0"/>
+            <Image x:Name="enemy_type1" Source="/Resources/Types/type_dream.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80"/>
+            <Image x:Name="enemy_type2" Source="/Resources/Types/type_dream.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="0,50,0,0"/>
             <StackPanel x:Name="enemy_weaknesses" VerticalAlignment="Top" Margin="0,100,0,0">
                 <Label x:Name="enemy_super_weak_label" Content="Super weak to:"/>
                 <WrapPanel x:Name="enemy_super_weak"/>
@@ -41,6 +60,20 @@
                 <Label x:Name="enemy_immune_label" Content="Immune to:"/>
                 <WrapPanel x:Name="enemy_immune"/>
             </StackPanel>
+            <Grid x:Name="enemy_stats" VerticalAlignment="Bottom">
+                <Image x:Name="enemy_stat_hp_label" Source="/Resources/Stats/stat_hp.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Margin="0,0,0,100"/>
+                <Rectangle x:Name="enemy_stat_hp_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,105"/>
+                <Image x:Name="enemy_stat_fatk_label" Source="/Resources/Stats/stat_fatk.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Margin="0,0,0,80"/>
+                <Rectangle x:Name="enemy_stat_fatk_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,85"/>
+                <Image x:Name="enemy_stat_fdef_label" Source="/Resources/Stats/stat_fdef.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Margin="0,0,0,60"/>
+                <Rectangle x:Name="enemy_stat_fdef_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,65"/>
+                <Image x:Name="enemy_stat_satk_label" Source="/Resources/Stats/stat_satk.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Margin="0,0,0,40"/>
+                <Rectangle x:Name="enemy_stat_satk_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,45"/>
+                <Image x:Name="enemy_stat_sdef_label" Source="/Resources/Stats/stat_sdef.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20" Margin="0,0,0,20"/>
+                <Rectangle x:Name="enemy_stat_sdef_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,25"/>
+                <Image x:Name="enemy_stat_speed_label" Source="/Resources/Stats/stat_spe.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="20"/>
+                <Rectangle x:Name="enemy_stat_speed_bar" HorizontalAlignment="Left" Stroke="White" VerticalAlignment="Bottom" Fill="Red" Width="80" Height="12" Margin="60,0,0,5"/>
+            </Grid>
         </Grid>
 
     </Grid>

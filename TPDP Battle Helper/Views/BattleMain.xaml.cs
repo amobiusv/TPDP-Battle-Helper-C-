@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,7 +23,7 @@ namespace TPDP_Battle_Helper.Views
         {
             InitializeComponent();
 
-            CompositionTarget.Rendering += Loop;
+            System.Windows.Media.CompositionTarget.Rendering += Loop;
         }
 
         private void Loop(object sender, EventArgs e)
@@ -43,6 +42,7 @@ namespace TPDP_Battle_Helper.Views
             {
                 SetPlayerTypes(playerPuppet);
                 SetPlayerWeaknesses(playerPuppet);
+                SetPlayerBaseStats(playerPuppet);
             }
             LastPlayerPuppet = playerPuppet;
 
@@ -55,6 +55,7 @@ namespace TPDP_Battle_Helper.Views
             {
                 SetEnemyTypes(enemyPuppet);
                 SetEnemyWeaknesses(enemyPuppet);
+                SetEnemyBaseStats(enemyPuppet);
             }
             LastEnemyPuppet = enemyPuppet;
 
@@ -243,10 +244,12 @@ namespace TPDP_Battle_Helper.Views
                     Image image = new Image();
                     image.Source = new BitmapImage(new Uri(type.FilePath, UriKind.Relative));
                     image.Width = sidebar.Width * 0.25;
-                    Thickness margin = new Thickness(sidebar.Width * 0.05, 0, 0, sidebar.Height * 0.01);
-                    image.Margin = margin;
+                    Thickness imageMargin = new Thickness(sidebar.Width * 0.05, 0, 0, sidebar.Height * 0.01);
+                    image.Margin = imageMargin;
                     panel.Children.Add(image);
                 }
+                Thickness panelMargin = new Thickness(sidebar.Width * 0.04, 0, 0, 0);
+                panel.Margin = panelMargin;
                 label.Visibility = Visibility.Visible;
                 panel.Visibility = Visibility.Visible;
             }
@@ -255,6 +258,185 @@ namespace TPDP_Battle_Helper.Views
                 label.Visibility = Visibility.Collapsed;
                 panel.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void SetPlayerBaseStats(PuppetEntity? puppet)
+        {
+
+            if (puppet == null)
+            {
+                player_stats.Visibility = Visibility.Hidden;
+            }
+            else {
+
+                Thickness labelMargin = new Thickness(main_left.Width * 0.05, 0, 0, main_left.Height * 0.025);
+                player_stat_speed_label.Width = main_left.Width * 0.4;
+                player_stat_speed_label.Margin = labelMargin;
+
+                labelMargin.Bottom += main_left.Height * 0.035;
+                player_stat_sdef_label.Width = main_left.Width * 0.4;
+                player_stat_sdef_label.Margin = labelMargin;
+
+                labelMargin.Bottom += main_left.Height * 0.035;
+                player_stat_satk_label.Width = main_left.Width * 0.4;
+                player_stat_satk_label.Margin = labelMargin;
+
+                labelMargin.Bottom += main_left.Height * 0.035;
+                player_stat_fdef_label.Width = main_left.Width * 0.4;
+                player_stat_fdef_label.Margin = labelMargin;
+
+                labelMargin.Bottom += main_left.Height * 0.035;
+                player_stat_fatk_label.Width = main_left.Width * 0.4;
+                player_stat_fatk_label.Margin = labelMargin;
+
+                labelMargin.Bottom += main_left.Height * 0.035;
+                player_stat_hp_label.Width = main_left.Width * 0.4;
+                player_stat_hp_label.Margin = labelMargin;
+
+                double baseHP = puppet.PuppetStyle.BaseStats.HP / 250.0;
+                double baseFAtk = puppet.PuppetStyle.BaseStats.FAtk / 165.0;
+                double baseFDef = puppet.PuppetStyle.BaseStats.FDef / 205.0;
+                double baseSAtk = puppet.PuppetStyle.BaseStats.SAtk / 165.0;
+                double baseSDef = puppet.PuppetStyle.BaseStats.SDef / 205.0;
+                double baseSpeed = puppet.PuppetStyle.BaseStats.Spd / 205.0;
+                Brush brush;
+
+                Thickness barMargin = new Thickness(main_left.Width * 0.45, 0, 0, main_left.Height * 0.03);
+                player_stat_speed_bar.Width = main_left.Width * 0.5 * baseSpeed;
+                player_stat_speed_bar.Height = main_left.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseSpeed)), (byte)(255 * baseSpeed), (byte)(64 * baseSpeed)));
+                player_stat_speed_bar.Fill = brush;
+                player_stat_speed_bar.Margin = barMargin;
+
+                barMargin.Bottom += main_left.Height * 0.035;
+                player_stat_sdef_bar.Width = main_left.Width * 0.5 * baseSDef;
+                player_stat_sdef_bar.Height = main_left.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseSDef)), (byte)(255 * baseSDef), (byte)(64 * baseSDef)));
+                player_stat_sdef_bar.Fill = brush;
+                player_stat_sdef_bar.Margin = barMargin;
+
+                barMargin.Bottom += main_left.Height * 0.035;
+                player_stat_satk_bar.Width = main_left.Width * 0.5 * baseSAtk;
+                player_stat_satk_bar.Height = main_left.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseSAtk)), (byte)(255 * baseSAtk), (byte)(64 * baseSAtk)));
+                player_stat_satk_bar.Fill = brush;
+                player_stat_satk_bar.Margin = barMargin;
+
+                barMargin.Bottom += main_left.Height * 0.035;
+                player_stat_fdef_bar.Width = main_left.Width * 0.5 * baseFDef;
+                player_stat_fdef_bar.Height = main_left.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseFDef)), (byte)(255 * baseFDef), (byte)(64 * baseFDef)));
+                player_stat_fdef_bar.Fill = brush;
+                player_stat_fdef_bar.Margin = barMargin;
+
+                barMargin.Bottom += main_left.Height * 0.035;
+                player_stat_fatk_bar.Width = main_left.Width * 0.5 * baseFAtk;
+                player_stat_fatk_bar.Height = main_left.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseFAtk)), (byte)(255 * baseFAtk), (byte)(64 * baseFAtk)));
+                player_stat_fatk_bar.Fill = brush;
+                player_stat_fatk_bar.Margin = barMargin;
+
+                barMargin.Bottom += main_left.Height * 0.035;
+                player_stat_hp_bar.Width = main_left.Width * 0.5 * baseHP;
+                player_stat_hp_bar.Height = main_left.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseHP)), (byte)(255 * baseHP), (byte)(64 * baseHP)));
+                player_stat_hp_bar.Fill = brush;
+                player_stat_hp_bar.Margin = barMargin;
+
+                player_stats.Visibility = Visibility.Visible;
+
+            }
+
+        }
+
+        private void SetEnemyBaseStats(PuppetEntity? puppet)
+        {
+
+            if (puppet == null)
+            {
+                enemy_stats.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+
+                Thickness labelMargin = new Thickness(main_right.Width * 0.05, 0, 0, main_right.Height * 0.025);
+                enemy_stat_speed_label.Width = main_right.Width * 0.4;
+                enemy_stat_speed_label.Margin = labelMargin;
+
+                labelMargin.Bottom += main_right.Height * 0.035;
+                enemy_stat_sdef_label.Width = main_right.Width * 0.4;
+                enemy_stat_sdef_label.Margin = labelMargin;
+
+                labelMargin.Bottom += main_right.Height * 0.035;
+                enemy_stat_satk_label.Width = main_right.Width * 0.4;
+                enemy_stat_satk_label.Margin = labelMargin;
+
+                labelMargin.Bottom += main_right.Height * 0.035;
+                enemy_stat_fdef_label.Width = main_right.Width * 0.4;
+                enemy_stat_fdef_label.Margin = labelMargin;
+
+                labelMargin.Bottom += main_right.Height * 0.035;
+                enemy_stat_fatk_label.Width = main_right.Width * 0.4;
+                enemy_stat_fatk_label.Margin = labelMargin;
+
+                labelMargin.Bottom += main_right.Height * 0.035;
+                enemy_stat_hp_label.Width = main_right.Width * 0.4;
+                enemy_stat_hp_label.Margin = labelMargin;
+
+                double baseHP = puppet.PuppetStyle.BaseStats.HP / 250.0;
+                double baseFAtk = puppet.PuppetStyle.BaseStats.FAtk / 165.0;
+                double baseFDef = puppet.PuppetStyle.BaseStats.FDef / 205.0;
+                double baseSAtk = puppet.PuppetStyle.BaseStats.SAtk / 165.0;
+                double baseSDef = puppet.PuppetStyle.BaseStats.SDef / 205.0;
+                double baseSpeed = puppet.PuppetStyle.BaseStats.Spd / 205.0;
+                Brush brush;
+
+                Thickness barMargin = new Thickness(main_right.Width * 0.45, 0, 0, main_right.Height * 0.03);
+                enemy_stat_speed_bar.Width = main_right.Width * 0.5 * baseSpeed;
+                enemy_stat_speed_bar.Height = main_right.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseSpeed)), (byte)(255 * baseSpeed), (byte)(64 * baseSpeed)));
+                enemy_stat_speed_bar.Fill = brush;
+                enemy_stat_speed_bar.Margin = barMargin;
+
+                barMargin.Bottom += main_right.Height * 0.035;
+                enemy_stat_sdef_bar.Width = main_right.Width * 0.5 * baseSDef;
+                enemy_stat_sdef_bar.Height = main_right.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseSDef)), (byte)(255 * baseSDef), (byte)(64 * baseSDef)));
+                enemy_stat_sdef_bar.Fill = brush;
+                enemy_stat_sdef_bar.Margin = barMargin;
+
+                barMargin.Bottom += main_right.Height * 0.035;
+                enemy_stat_satk_bar.Width = main_right.Width * 0.5 * baseSAtk;
+                enemy_stat_satk_bar.Height = main_right.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseSAtk)), (byte)(255 * baseSAtk), (byte)(64 * baseSAtk)));
+                enemy_stat_satk_bar.Fill = brush;
+                enemy_stat_satk_bar.Margin = barMargin;
+
+                barMargin.Bottom += main_right.Height * 0.035;
+                enemy_stat_fdef_bar.Width = main_right.Width * 0.5 * baseFDef;
+                enemy_stat_fdef_bar.Height = main_right.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseFDef)), (byte)(255 * baseFDef), (byte)(64 * baseFDef)));
+                enemy_stat_fdef_bar.Fill = brush;
+                enemy_stat_fdef_bar.Margin = barMargin;
+
+                barMargin.Bottom += main_right.Height * 0.035;
+                enemy_stat_fatk_bar.Width = main_right.Width * 0.5 * baseFAtk;
+                enemy_stat_fatk_bar.Height = main_right.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseFAtk)), (byte)(255 * baseFAtk), (byte)(64 * baseFAtk)));
+                enemy_stat_fatk_bar.Fill = brush;
+                enemy_stat_fatk_bar.Margin = barMargin;
+
+                barMargin.Bottom += main_right.Height * 0.035;
+                enemy_stat_hp_bar.Width = main_right.Width * 0.5 * baseHP;
+                enemy_stat_hp_bar.Height = main_right.Height * 0.02;
+                brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseHP)), (byte)(255 * baseHP), (byte)(64 * baseHP)));
+                enemy_stat_hp_bar.Fill = brush;
+                enemy_stat_hp_bar.Margin = barMargin;
+
+                enemy_stats.Visibility = Visibility.Visible;
+
+            }
+
         }
 
     }
