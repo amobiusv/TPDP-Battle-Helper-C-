@@ -14,7 +14,7 @@ namespace TPDP_Battle_Helper
     {
 
         public static double ASPECT_RATIO = 16d / 9d;
-        public static int TITLE_BAR_HEIGHT = 32;
+        public static int TITLE_BAR_HEIGHT = 40;
 
         protected override void OnStartup(StartupEventArgs e)
         {

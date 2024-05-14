@@ -9,21 +9,24 @@ using TPDP_Battle_Helper.Data;
 namespace TPDP_Battle_Helper.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PageBattleMain.xaml
     /// </summary>
-    public partial class BattleMain : Window
+    public partial class PageBattleMain : Page
     {
+
+        private MainWindow mainWindow;
 
         private PuppetEntity? LastPlayerPuppet = null;
         private PuppetEntity? LastEnemyPuppet = null;
 
         private Rectangle? LastBounds = null;
 
-        public BattleMain()
+        public PageBattleMain(MainWindow window)
         {
             InitializeComponent();
 
-            System.Windows.Media.CompositionTarget.Rendering += Loop;
+            mainWindow = window;
+            CompositionTarget.Rendering += Loop;
         }
 
         private void Loop(object sender, EventArgs e)
@@ -31,7 +34,7 @@ namespace TPDP_Battle_Helper.Views
 
             // Reposition
             Rectangle bounds = GameHook.FindGameBounds();
-            Reposition(bounds);
+            mainWindow.Reposition(bounds, page, main_left, main_right);
 
             // Get player puppet
             short playerPuppetId = GameHook.ReadAddress(0xC59FDB, 2).Select(b => (short)b).ToArray()[0];
@@ -61,25 +64,13 @@ namespace TPDP_Battle_Helper.Views
 
             LastBounds = bounds;
 
-        }
+            // Switch pages
+            bool transitioned = mainWindow.ScreenTransition(this);
+            if (transitioned)
+            {
+                CompositionTarget.Rendering -= Loop;
+            }
 
-        private void Reposition(Rectangle currentBounds)
-        {
-            int sidebarHeight = currentBounds.Height - App.TITLE_BAR_HEIGHT;
-            int newWidth = (int)(sidebarHeight * App.ASPECT_RATIO);
-            int sidebarWidth = (newWidth - currentBounds.Width) / 2;
-
-            // Place entire window
-            window.Left = currentBounds.Left - sidebarWidth;
-            window.Top = currentBounds.Top;
-            window.Width = newWidth;
-            window.Height = currentBounds.Height;
-
-            // Resize margins
-            main_left.Width = sidebarWidth;
-            main_left.Height = sidebarHeight;
-            main_right.Width = sidebarWidth;
-            main_right.Height = sidebarHeight;
         }
 
         private bool RequiresUpdating(PuppetEntity? currentPuppet, PuppetEntity? expectedPuppet, Rectangle currentBounds)
@@ -178,7 +169,8 @@ namespace TPDP_Battle_Helper.Views
             margin.Top = main_left.Height * 0.2;
             player_weaknesses.Margin = margin;
 
-            if (puppet == null) {
+            if (puppet == null)
+            {
                 player_super_weak_label.Visibility = Visibility.Collapsed;
                 player_super_weak.Visibility = Visibility.Collapsed;
                 player_weak_label.Visibility = Visibility.Collapsed;
@@ -267,9 +259,10 @@ namespace TPDP_Battle_Helper.Views
             {
                 player_stats.Visibility = Visibility.Hidden;
             }
-            else {
+            else
+            {
 
-                Thickness labelMargin = new Thickness(main_left.Width * 0.05, 0, 0, main_left.Height * 0.025);
+                Thickness labelMargin = new Thickness(main_left.Width * 0.05, 0, 0, main_left.Height * 0.015);
                 player_stat_speed_label.Width = main_left.Width * 0.4;
                 player_stat_speed_label.Margin = labelMargin;
 
@@ -301,7 +294,7 @@ namespace TPDP_Battle_Helper.Views
                 double baseSpeed = puppet.PuppetStyle.BaseStats.Spd / 205.0;
                 Brush brush;
 
-                Thickness barMargin = new Thickness(main_left.Width * 0.45, 0, 0, main_left.Height * 0.03);
+                Thickness barMargin = new Thickness(main_left.Width * 0.45, 0, 0, main_left.Height * 0.02);
                 player_stat_speed_bar.Width = main_left.Width * 0.5 * baseSpeed;
                 player_stat_speed_bar.Height = main_left.Height * 0.02;
                 brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseSpeed)), (byte)(255 * baseSpeed), (byte)(64 * baseSpeed)));
@@ -359,7 +352,7 @@ namespace TPDP_Battle_Helper.Views
             else
             {
 
-                Thickness labelMargin = new Thickness(main_right.Width * 0.05, 0, 0, main_right.Height * 0.025);
+                Thickness labelMargin = new Thickness(main_right.Width * 0.05, 0, 0, main_right.Height * 0.015);
                 enemy_stat_speed_label.Width = main_right.Width * 0.4;
                 enemy_stat_speed_label.Margin = labelMargin;
 
@@ -391,7 +384,7 @@ namespace TPDP_Battle_Helper.Views
                 double baseSpeed = puppet.PuppetStyle.BaseStats.Spd / 205.0;
                 Brush brush;
 
-                Thickness barMargin = new Thickness(main_right.Width * 0.45, 0, 0, main_right.Height * 0.03);
+                Thickness barMargin = new Thickness(main_right.Width * 0.45, 0, 0, main_right.Height * 0.02);
                 enemy_stat_speed_bar.Width = main_right.Width * 0.5 * baseSpeed;
                 enemy_stat_speed_bar.Height = main_right.Height * 0.02;
                 brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)(255 * (1 - baseSpeed)), (byte)(255 * baseSpeed), (byte)(64 * baseSpeed)));
@@ -440,7 +433,4 @@ namespace TPDP_Battle_Helper.Views
         }
 
     }
-
-
-
 }
