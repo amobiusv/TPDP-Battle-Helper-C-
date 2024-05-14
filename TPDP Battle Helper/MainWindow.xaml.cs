@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 using TPDP_Battle_Helper.Views;
 
 namespace TPDP_Battle_Helper
@@ -12,16 +11,33 @@ namespace TPDP_Battle_Helper
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private double LastRepositionTime = 0;
+
+        private PageOverworld pageOverworld;
+        private PageBattleMain pageBattleMain;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            frame.Content = new PageOverworld(this);
+            pageOverworld = new PageOverworld(this);
+            pageBattleMain = new PageBattleMain(this);
+
+            frame.Content = pageOverworld;
+            pageOverworld.Active = true;
         }
 
         public void Reposition(Rectangle currentBounds, Page page, Grid main_left, Grid main_right)
         {
-            int sidebarHeight = currentBounds.Height - App.TITLE_BAR_HEIGHT;
+            // Delta Time
+            double currentTime = new TimeSpan(DateTime.Now.Ticks).TotalMilliseconds;
+            double deltaTime = currentTime - LastRepositionTime;
+            if (deltaTime < 1000 / App.REPOSITION_REFRESH_RATE) return;
+            LastRepositionTime = currentTime - currentTime % (1000 / App.REPOSITION_REFRESH_RATE);
+
+            // Preparations
+            int sidebarHeight = currentBounds.Height - (int)App.TITLEBAR_HEIGHT;
             int newWidth = (int)(sidebarHeight * App.ASPECT_RATIO);
             int sidebarWidth = (newWidth - currentBounds.Width) / 2;
 
@@ -30,7 +46,7 @@ namespace TPDP_Battle_Helper
             window.Top = currentBounds.Top;
             window.Width = newWidth;
             window.Height = currentBounds.Height;
-            page.Width = newWidth - 16;
+            page.Width = newWidth - App.WINDOW_WIDTH_OFFSET;
             page.Height = sidebarHeight;
 
             // Resize margins
@@ -49,7 +65,9 @@ namespace TPDP_Battle_Helper
             {
                 if (page.GetType() != typeof(PageBattleMain))
                 {
-                    frame.Content = new PageBattleMain(this);
+                    frame.Content = pageBattleMain;
+                    LastRepositionTime = 0;
+                    pageBattleMain.Active = true;
                     return true;
                 }
             }
@@ -59,7 +77,9 @@ namespace TPDP_Battle_Helper
             {
                 if (page.GetType() != typeof(PageOverworld))
                 {
-                    frame.Content = new PageOverworld(this);
+                    frame.Content = pageOverworld;
+                    LastRepositionTime = 0;
+                    pageOverworld.Active = true;
                     return true;
                 }
             }

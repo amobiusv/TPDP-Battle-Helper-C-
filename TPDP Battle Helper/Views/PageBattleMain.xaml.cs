@@ -14,7 +14,10 @@ namespace TPDP_Battle_Helper.Views
     public partial class PageBattleMain : Page
     {
 
+        private double LastContentTime = 0;
+
         private MainWindow mainWindow;
+        public bool Active = false;
 
         private PuppetEntity? LastPlayerPuppet = null;
         private PuppetEntity? LastEnemyPuppet = null;
@@ -26,11 +29,19 @@ namespace TPDP_Battle_Helper.Views
             InitializeComponent();
 
             mainWindow = window;
+
             CompositionTarget.Rendering += Loop;
         }
 
         private void Loop(object sender, EventArgs e)
         {
+            if (!Active) return;
+
+            // Delta Time
+            double currentTime = new TimeSpan(DateTime.Now.Ticks).TotalMilliseconds;
+            double deltaTime = currentTime - LastContentTime;
+            if (deltaTime < 1000 / App.CONTENT_REFRESH_RATE) return;
+            LastContentTime = currentTime - currentTime % (1000 / App.CONTENT_REFRESH_RATE);
 
             // Reposition
             Rectangle bounds = GameHook.FindGameBounds();
@@ -66,10 +77,7 @@ namespace TPDP_Battle_Helper.Views
 
             // Switch pages
             bool transitioned = mainWindow.ScreenTransition(this);
-            if (transitioned)
-            {
-                CompositionTarget.Rendering -= Loop;
-            }
+            if (transitioned) Active = true;
 
         }
 
@@ -226,7 +234,7 @@ namespace TPDP_Battle_Helper.Views
 
         }
 
-        private void PopulateResistanceImages(ElementalType[] types, Label label, WrapPanel panel, Grid sidebar)
+        private void PopulateResistanceImages(ElementalType[] types, FrameworkElement label, WrapPanel panel, Grid sidebar)
         {
             if (types.Length > 0)
             {
@@ -242,8 +250,11 @@ namespace TPDP_Battle_Helper.Views
                 }
                 Thickness panelMargin = new Thickness(sidebar.Width * 0.04, 0, 0, 0);
                 panel.Margin = panelMargin;
-                label.Visibility = Visibility.Visible;
                 panel.Visibility = Visibility.Visible;
+
+                Thickness labelMargin = new Thickness(sidebar.Width * 0.04, sidebar.Height * 0.01, sidebar.Width * 0.04, sidebar.Height * 0.01);
+                label.Margin = labelMargin;
+                label.Visibility = Visibility.Visible;
             }
             else
             {
