@@ -37,16 +37,16 @@ namespace TPDP_Battle_Helper
             LastRepositionTime = currentTime - currentTime % (1000 / App.REPOSITION_REFRESH_RATE);
 
             // Preparations
-            int sidebarHeight = currentBounds.Height - (int)App.TITLEBAR_HEIGHT;
+            int sidebarHeight = Math.Max(currentBounds.Height - (int)App.TITLEBAR_HEIGHT, 0);
             int newWidth = (int)(sidebarHeight * App.ASPECT_RATIO);
-            int sidebarWidth = (newWidth - currentBounds.Width) / 2;
+            int sidebarWidth = Math.Max((newWidth - currentBounds.Width) / 2, 0);
 
             // Place entire window
             window.Left = currentBounds.Left - sidebarWidth;
             window.Top = currentBounds.Top;
             window.Width = newWidth;
             window.Height = currentBounds.Height;
-            page.Width = newWidth - App.WINDOW_WIDTH_OFFSET;
+            page.Width = Math.Max(newWidth - App.WINDOW_WIDTH_OFFSET, 0);
             page.Height = sidebarHeight;
 
             // Resize margins
@@ -59,9 +59,10 @@ namespace TPDP_Battle_Helper
         public bool ScreenTransition(Page page)
         {
             bool inBattle = GameHook.ReadAddress(0x93C0DF, 1)[0] != 0x00;
+            byte battleContextMenu = GameHook.ReadAddress(0x93C164, 1)[0];
 
             // BattleMain
-            if (inBattle)
+            if (inBattle && battleContextMenu != 2)
             {
                 if (page.GetType() != typeof(PageBattleMain))
                 {

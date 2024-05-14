@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,7 @@ namespace TPDP_Battle_Helper.Views
     {
 
         private double LastContentTime = 0;
+        private bool FlickerProtection = false;
 
         private MainWindow mainWindow;
         public bool Active = false;
@@ -47,18 +49,37 @@ namespace TPDP_Battle_Helper.Views
             Rectangle bounds = GameHook.FindGameBounds();
             mainWindow.Reposition(bounds, page, main_left, main_right);
 
+            // Puppet addresses
+            byte battleContextMenu = GameHook.ReadAddress(0x93C164, 1)[0];
+            uint playerPuppetAddress = 0xC59FDB;
+            if (battleContextMenu >= 10 && battleContextMenu < 20)
+            {
+                playerPuppetAddress = 0x8A4FD7;
+                FlickerProtection = true;
+            }
+
             // Get player puppet
-            short playerPuppetId = GameHook.ReadAddress(0xC59FDB, 2).Select(b => (short)b).ToArray()[0];
-            byte playerPuppetStyleIdx = GameHook.ReadAddress(0xC59FDD, 1)[0];
+            short playerPuppetId = GameHook.ReadAddress(playerPuppetAddress, 2).Select(b => (short)b).ToArray()[0];
+            byte playerPuppetStyleIdx = GameHook.ReadAddress(playerPuppetAddress + 0x02, 1)[0];
             PuppetEntity? playerPuppet = PuppetEntity.FindPuppet(playerPuppetId, playerPuppetStyleIdx);
 
             if (RequiresUpdating(playerPuppet, LastPlayerPuppet, bounds))
             {
-                SetPlayerTypes(playerPuppet);
-                SetPlayerWeaknesses(playerPuppet);
-                SetPlayerBaseStats(playerPuppet);
+                if (!FlickerProtection || LastPlayerPuppet == null)
+                {
+                    if (playerPuppet != null)
+                        Debug.WriteLine("Displaying Player Puppet: " + playerPuppet.PuppetSpecies.PuppetName + " (" + playerPuppet.PuppetStyle.StyleName + ")");
+                    SetPlayerTypes(playerPuppet);
+                    SetPlayerWeaknesses(playerPuppet);
+                    SetPlayerBaseStats(playerPuppet);
+                    LastPlayerPuppet = playerPuppet;
+                }
+                else
+                {
+                    LastPlayerPuppet = null;
+                    FlickerProtection = false;
+                }
             }
-            LastPlayerPuppet = playerPuppet;
 
             // Get enemy puppet
             short enemyPuppetId = GameHook.ReadAddress(0xC5A510, 2).Select(b => (short)b).ToArray()[0];
@@ -67,11 +88,13 @@ namespace TPDP_Battle_Helper.Views
 
             if (RequiresUpdating(playerPuppet, LastEnemyPuppet, bounds))
             {
+                if (enemyPuppet != null)
+                    Debug.WriteLine("Displaying Enemy Puppet: " + enemyPuppet.PuppetSpecies.PuppetName + " (" + enemyPuppet.PuppetStyle.StyleName + ")");
                 SetEnemyTypes(enemyPuppet);
                 SetEnemyWeaknesses(enemyPuppet);
                 SetEnemyBaseStats(enemyPuppet);
+                LastEnemyPuppet = enemyPuppet;
             }
-            LastEnemyPuppet = enemyPuppet;
 
             LastBounds = bounds;
 
@@ -155,7 +178,7 @@ namespace TPDP_Battle_Helper.Views
 
                 if (type2 == null)
                 {
-                    player_type2.Visibility = Visibility.Hidden;
+                    enemy_type2.Visibility = Visibility.Hidden;
                 }
                 else
                 {

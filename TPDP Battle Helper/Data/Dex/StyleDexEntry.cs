@@ -7,15 +7,17 @@ namespace TPDP_Battle_Helper.Data.Dex
     {
 
         public byte StyleId {  get; }
+        public string StyleName { get; }
         public ElementalType Type1 { get; }
         public ElementalType? Type2 { get; }
         public Object Ability1 { get; }
         public Object? Ability2 { get; }
         public PuppetStats BaseStats { get; }
 
-        public StyleDexEntry(XmlNode baseNode, byte styleId)
+        public StyleDexEntry(XmlNode baseNode, byte styleId, string styleName)
         {
             this.StyleId = styleId;
+            this.StyleName = styleName;
             foreach (XmlNode node in baseNode.ChildNodes)
             {
                 switch (node.Name)

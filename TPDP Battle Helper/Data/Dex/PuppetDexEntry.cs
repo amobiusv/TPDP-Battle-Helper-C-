@@ -37,7 +37,8 @@ namespace TPDP_Battle_Helper.Data.Dex
                             if (node.NodeType == XmlNodeType.Element)
                             {
                                 byte styleId = byte.Parse(styleNode.Attributes["id"].Value);
-                                StyleDexEntry entry = new StyleDexEntry(styleNode, styleId);
+                                string styleName = styleNode.Attributes["name"].Value;
+                                StyleDexEntry entry = new StyleDexEntry(styleNode, styleId, styleName);
                                 StyleList.Add(styleId, entry);
                             }
                         }

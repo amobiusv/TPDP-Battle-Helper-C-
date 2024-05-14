@@ -74,6 +74,222 @@
     </styles>
   </puppet>
 
+  <!-- YOUMU -->
+
+  <puppet name="YOUMU" id="0x0034">
+    <name>Youmu</name>
+    <internalId>0x0034</internalId>
+    <dexId>47</dexId>
+    <cost>100</cost>
+    <styles>
+
+      <style name="NORMAL" id="0">
+        <type1>STEEL</type1>
+        <type2>NETHER</type2>
+        <ability1>MINDS_EYE</ability1>
+        <ability2>GALE</ability2>
+        <baseStats>
+          <HP>45</HP>
+          <FAtk>70</FAtk>
+          <FDef>40</FDef>
+          <SAtk>50</SAtk>
+          <SDef>30</SDef>
+          <Spd>70</Spd>
+        </baseStats>
+      </style>
+
+      <style name="SPEED" id="1">
+        <type1>STEEL</type1>
+        <type2>NETHER</type2>
+        <ability1>MINDS_EYE</ability1>
+        <ability2>GALE</ability2>
+        <baseStats>
+          <HP>70</HP>
+          <FAtk>110</FAtk>
+          <FDef>70</FDef>
+          <SAtk>105</SAtk>
+          <SDef>50</SDef>
+          <Spd>115</Spd>
+        </baseStats>
+      </style>
+
+      <style name="POWER" id="2">
+        <type1>STEEL</type1>
+        <type2>NETHER</type2>
+        <ability1>MINDS_EYE</ability1>
+        <ability2>GALE</ability2>
+        <baseStats>
+          <HP>80</HP>
+          <FAtk>125</FAtk>
+          <FDef>100</FDef>
+          <SAtk>55</SAtk>
+          <SDef>70</SDef>
+          <Spd>90</Spd>
+        </baseStats>
+      </style>
+
+      <style name="EXTRA" id="3">
+        <type1>STEEL</type1>
+        <type2>NATURE</type2>
+        <ability1>REFLECT_GUARD</ability1>
+        <ability2>STUBBORN</ability2>
+        <baseStats>
+          <HP>95</HP>
+          <FAtk>50</FAtk>
+          <FDef>100</FDef>
+          <SAtk>105</SAtk>
+          <SDef>120</SDef>
+          <Spd>50</Spd>
+        </baseStats>
+      </style>
+
+    </styles>
+  </puppet>
+
+  <!-- TOKIKO -->
+
+  <puppet name="TOKIKO" id="0x003B">
+    <name>Tokiko</name>
+    <internalId>0x003B</internalId>
+    <dexId>54</dexId>
+    <cost>80</cost>
+    <styles>
+
+      <style name="NORMAL" id="0">
+        <type1>WIND</type1>
+        <type2></type2>
+        <ability1>FINAL_FORM</ability1>
+        <ability2>HEALING_POWER</ability2>
+        <baseStats>
+          <HP>50</HP>
+          <FAtk>50</FAtk>
+          <FDef>60</FDef>
+          <SAtk>35</SAtk>
+          <SDef>40</SDef>
+          <Spd>30</Spd>
+        </baseStats>
+      </style>
+
+      <style name="POWER" id="1">
+        <type1>WIND</type1>
+        <type2></type2>
+        <ability1>WARNING_SHOT</ability1>
+        <ability2>HEALING_POWER</ability2>
+        <baseStats>
+          <HP>100</HP>
+          <FAtk>100</FAtk>
+          <FDef>95</FDef>
+          <SAtk>50</SAtk>
+          <SDef>95</SDef>
+          <Spd>35</Spd>
+        </baseStats>
+      </style>
+
+      <style name="DEFENSE" id="2">
+        <type1>WIND</type1>
+        <type2>ELECTRIC</type2>
+        <ability1>DEPLOY_SMOKE</ability1>
+        <ability2>IN_SYNC</ability2>
+        <baseStats>
+          <HP>95</HP>
+          <FAtk>80</FAtk>
+          <FDef>120</FDef>
+          <SAtk>35</SAtk>
+          <SDef>65</SDef>
+          <Spd>80</Spd>
+        </baseStats>
+      </style>
+
+      <style name="EXTRA" id="3">
+        <type1>WIND</type1>
+        <type2>WARPED</type2>
+        <ability1>INVALIDATE</ability1>
+        <ability2>WARINESS</ability2>
+        <baseStats>
+          <HP>80</HP>
+          <FAtk>40</FAtk>
+          <FDef>60</FDef>
+          <SAtk>120</SAtk>
+          <SDef>105</SDef>
+          <Spd>70</Spd>
+        </baseStats>
+      </style>
+
+    </styles>
+  </puppet>
+
+  <!-- MYSTIA -->
+
+  <puppet name="MYSTIA" id="0x003D">
+    <name>Mystia</name>
+    <internalId>0x003D</internalId>
+    <dexId>56</dexId>
+    <cost>80</cost>
+    <styles>
+
+      <style name="NORMAL" id="0">
+        <type1>SOUND</type1>
+        <type2>DARK</type2>
+        <ability1>SMOOTH_SAILING</ability1>
+        <ability2>GOOD_MANAGEMENT</ability2>
+        <baseStats>
+          <HP>55</HP>
+          <FAtk>30</FAtk>
+          <FDef>30</FDef>
+          <SAtk>50</SAtk>
+          <SDef>65</SDef>
+          <Spd>40</Spd>
+        </baseStats>
+      </style>
+
+      <style name="DEFENSE" id="1">
+        <type1>SOUND</type1>
+        <type2>DARK</type2>
+        <ability1>SMOOTH_SAILING</ability1>
+        <ability2>GOOD_MANAGEMENT</ability2>
+        <baseStats>
+          <HP>85</HP>
+          <FAtk>70</FAtk>
+          <FDef>75</FDef>
+          <SAtk>80</SAtk>
+          <SDef>120</SDef>
+          <Spd>50</Spd>
+        </baseStats>
+      </style>
+
+      <style name="POWER" id="2">
+        <type1>SOUND</type1>
+        <type2>WIND</type2>
+        <ability1>SMOOTH_SAILING</ability1>
+        <ability2>UP_TEMPO</ability2>
+        <baseStats>
+          <HP>80</HP>
+          <FAtk>55</FAtk>
+          <FDef>80</FDef>
+          <SAtk>110</SAtk>
+          <SDef>80</SDef>
+          <Spd>75</Spd>
+        </baseStats>
+      </style>
+
+      <style name="EXTRA" id="3">
+        <type1>WIND</type1>
+        <type2>POISON</type2>
+        <ability1>QUICK_EYE</ability1>
+        <ability2>STIMULATIVE</ability2>
+        <baseStats>
+          <HP>120</HP>
+          <FAtk>30</FAtk>
+          <FDef>55</FDef>
+          <SAtk>90</SAtk>
+          <SDef>55</SDef>
+          <Spd>130</Spd>
+        </baseStats>
+      </style>
+
+    </styles>
+  </puppet>
+
   <!-- LUNA -->
 
   <puppet name="LUNA" id="0x0046">
@@ -140,6 +356,150 @@
           <SAtk>40</SAtk>
           <SDef>100</SDef>
           <Spd>40</Spd>
+        </baseStats>
+      </style>
+
+    </styles>
+  </puppet>
+
+  <!-- FUTO -->
+
+  <puppet name="FUTO" id="0x006F">
+    <name>Futo</name>
+    <internalId>0x006F</internalId>
+    <dexId>106</dexId>
+    <cost>110</cost>
+    <styles>
+
+      <style name="NORMAL" id="0">
+        <type1>WIND</type1>
+        <type2>WATER</type2>
+        <ability1>DEPLOY_SMOKE</ability1>
+        <ability2>WEATHER_RESIST</ability2>
+        <baseStats>
+          <HP>45</HP>
+          <FAtk>40</FAtk>
+          <FDef>55</FDef>
+          <SAtk>60</SAtk>
+          <SDef>35</SDef>
+          <Spd>70</Spd>
+        </baseStats>
+      </style>
+
+      <style name="SPEED" id="1">
+        <type1>WIND</type1>
+        <type2>WATER</type2>
+        <ability1>DEPLOY_SMOKE</ability1>
+        <ability2>STRATEGIST</ability2>
+        <baseStats>
+          <HP>65</HP>
+          <FAtk>70</FAtk>
+          <FDef>90</FDef>
+          <SAtk>105</SAtk>
+          <SDef>55</SDef>
+          <Spd>135</Spd>
+        </baseStats>
+      </style>
+
+      <style name="POWER" id="2">
+        <type1>EARTH</type1>
+        <type2>FIRE</type2>
+        <ability1>DEPLOY_SMOKE</ability1>
+        <ability2>UNBOUND</ability2>
+        <baseStats>
+          <HP>80</HP>
+          <FAtk>60</FAtk>
+          <FDef>55</FDef>
+          <SAtk>120</SAtk>
+          <SDef>95</SDef>
+          <Spd>110</Spd>
+        </baseStats>
+      </style>
+
+      <style name="EXTRA" id="3">
+        <type1>NETHER</type1>
+        <type2>FIGHTING</type2>
+        <ability1>SORE_LOSER</ability1>
+        <ability2>ACTIVE</ability2>
+        <baseStats>
+          <HP>80</HP>
+          <FAtk>110</FAtk>
+          <FDef>60</FDef>
+          <SAtk>60</SAtk>
+          <SDef>80</SDef>
+          <Spd>130</Spd>
+        </baseStats>
+      </style>
+
+    </styles>
+  </puppet>
+
+  <!-- YORIGAMI -->
+
+  <puppet name="YORIGAMI" id="0x008C">
+    <name>Yorigami</name>
+    <internalId>0x008C</internalId>
+    <dexId>127</dexId>
+    <cost>110</cost>
+    <styles>
+
+      <style name="NORMAL" id="0">
+        <type1>FIRE</type1>
+        <type2>FIGHTING</type2>
+        <ability1>GLAMOROUS</ability1>
+        <ability2>NEGATIVE_AURA</ability2>
+        <baseStats>
+          <HP>60</HP>
+          <FAtk>70</FAtk>
+          <FDef>40</FDef>
+          <SAtk>45</SAtk>
+          <SDef>45</SDef>
+          <Spd>55</Spd>
+        </baseStats>
+      </style>
+
+      <style name="POWER" id="1">
+        <type1>FIRE</type1>
+        <type2>FIGHTING</type2>
+        <ability1>GLAMOROUS</ability1>
+        <ability2>NEGATIVE_AURA</ability2>
+        <baseStats>
+          <HP>120</HP>
+          <FAtk>120</FAtk>
+          <FDef>85</FDef>
+          <SAtk>60</SAtk>
+          <SDef>65</SDef>
+          <Spd>85</Spd>
+        </baseStats>
+      </style>
+
+      <style name="DEFENSE" id="2">
+        <type1>FIRE</type1>
+        <type2>NETHER</type2>
+        <ability1>SOUTHERN_EXPANSE</ability1>
+        <ability2>NEGATIVE_AURA</ability2>
+        <baseStats>
+          <HP>125</HP>
+          <FAtk>75</FAtk>
+          <FDef>80</FDef>
+          <SAtk>105</SAtk>
+          <SDef>75</SDef>
+          <Spd>75</Spd>
+        </baseStats>
+      </style>
+
+      <style name="EXTRA" id="3">
+        <type1>STEEL</type1>
+        <type2>NETHER</type2>
+        <ability1>RECKLESS</ability1>
+        <ability2>WASTEFUL</ability2>
+        <baseStats>
+          <HP>165</HP>
+          <FAtk>105</FAtk>
+          <FDef>60</FDef>
+          <SAtk>55</SAtk>
+          <SDef>55</SDef>
+          <Spd>95</Spd>
         </baseStats>
       </style>
 
