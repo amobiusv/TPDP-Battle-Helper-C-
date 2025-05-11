@@ -51,15 +51,16 @@ namespace TPDP_Battle_Helper.Views
 
             // Puppet addresses
             byte battleContextMenu = GameHook.ReadAddress(0x93C164, 1)[0];
+
+            // Get player puppet
             uint playerPuppetAddress = 0xC59FDB;
             if (battleContextMenu >= 10 && battleContextMenu < 20)
             {
                 playerPuppetAddress = 0x8A4FD7;
                 FlickerProtection = true;
             }
-
-            // Get player puppet
-            short playerPuppetId = GameHook.ReadAddress(playerPuppetAddress, 2).Select(b => (short)b).ToArray()[0];
+            byte[] playerPuppetIdTmp = GameHook.ReadAddress(playerPuppetAddress, 2);
+            ushort playerPuppetId = (ushort)(playerPuppetIdTmp[0] + playerPuppetIdTmp[1] * 0x0100);
             byte playerPuppetStyleIdx = GameHook.ReadAddress(playerPuppetAddress + 0x02, 1)[0];
             PuppetEntity? playerPuppet = PuppetEntity.FindPuppet(playerPuppetId, playerPuppetStyleIdx);
 
@@ -82,11 +83,13 @@ namespace TPDP_Battle_Helper.Views
             }
 
             // Get enemy puppet
-            short enemyPuppetId = GameHook.ReadAddress(0xC5A510, 2).Select(b => (short)b).ToArray()[0];
-            byte enemyPuppetStyleIdx = GameHook.ReadAddress(0xC5A512, 1)[0];
+            uint enemyPuppetAddress = 0xC5A510;
+            byte[] enemyPuppetIdTmp = GameHook.ReadAddress(enemyPuppetAddress, 2);
+            ushort enemyPuppetId = (ushort)(enemyPuppetIdTmp[0] + enemyPuppetIdTmp[1] * 0x0100);
+            byte enemyPuppetStyleIdx = GameHook.ReadAddress(enemyPuppetAddress + 0x02, 1)[0];
             PuppetEntity? enemyPuppet = PuppetEntity.FindPuppet(enemyPuppetId, enemyPuppetStyleIdx);
 
-            if (RequiresUpdating(playerPuppet, LastEnemyPuppet, bounds))
+            if (RequiresUpdating(enemyPuppet, LastEnemyPuppet, bounds))
             {
                 if (enemyPuppet != null)
                     Debug.WriteLine("Displaying Enemy Puppet: " + enemyPuppet.PuppetSpecies.PuppetName + " (" + enemyPuppet.PuppetStyle.StyleName + ")");

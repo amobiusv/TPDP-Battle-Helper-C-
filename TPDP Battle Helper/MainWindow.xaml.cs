@@ -16,6 +16,7 @@ namespace TPDP_Battle_Helper
 
         private PageOverworld pageOverworld;
         private PageBattleMain pageBattleMain;
+        private PageBattleMove pageBattleMove;
 
         public MainWindow()
         {
@@ -23,6 +24,7 @@ namespace TPDP_Battle_Helper
 
             pageOverworld = new PageOverworld(this);
             pageBattleMain = new PageBattleMain(this);
+            pageBattleMove = new PageBattleMove(this);
 
             frame.Content = pageOverworld;
             pageOverworld.Active = true;
@@ -69,6 +71,18 @@ namespace TPDP_Battle_Helper
                     frame.Content = pageBattleMain;
                     LastRepositionTime = 0;
                     pageBattleMain.Active = true;
+                    return true;
+                }
+            }
+
+            // BattleMove
+            else if (inBattle && battleContextMenu == 2)
+            {
+                if (page.GetType() != typeof(PageBattleMove))
+                {
+                    frame.Content = pageBattleMove;
+                    LastRepositionTime = 0;
+                    pageBattleMove.Active = true;
                     return true;
                 }
             }

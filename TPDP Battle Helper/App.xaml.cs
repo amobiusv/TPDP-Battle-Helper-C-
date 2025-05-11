@@ -5,6 +5,7 @@ using Tomlyn;
 using Tomlyn.Model;
 using TPDP_Battle_Helper.Data;
 using TPDP_Battle_Helper.Data.Dex;
+using TPDP_Battle_Helper.Data.Skill;
 
 namespace TPDP_Battle_Helper
 {
@@ -30,6 +31,7 @@ namespace TPDP_Battle_Helper
 
             // Populate data
             ElementalType.Init();
+            SkillDex.Init();
             PuppetDex.Init();
 
             // Hook to the game

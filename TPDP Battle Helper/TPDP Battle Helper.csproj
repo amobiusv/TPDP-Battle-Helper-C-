@@ -12,17 +12,35 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Config\*" />
+    <None Remove="Config\**\*" />
+    <None Remove="Content\**\*" />
     <None Remove="Resources\**\*" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Config\*">
+    <Content Include="Config\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Content\Map\MapTemplate.pdn" />
+    <Content Remove="Content\Map\MapTemplate1.pdn" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Content\Map\MapTemplate.pdn">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Map\MapTemplate1.pdn">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

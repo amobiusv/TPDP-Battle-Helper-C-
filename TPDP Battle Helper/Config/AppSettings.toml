@@ -4,7 +4,8 @@
 # Name of the title atop the window for the game
 # Can define a list of possible names in case modded or DLC change the title
 game_title = [
-	"TPDP Shard of Dreams"
+	"TPDP Shard of Dreams",
+	"TPDP"
 ]
 
 [DIMENSIONS]
@@ -15,12 +16,10 @@ window_aspect_ratio = "16:9"
 
 # The height (in pixels) of the title bar.
 # If information is getting either cropped out or not reaching around the bottom, change this.
-# This value only exists because I'm a terrible programmer.
 titlebar_height = 40
 
-# Non-sensical value to avoid info getting cropped on the right.
+# Value to avoid info getting cropped on the right.
 # If information is getting either cropped out or not reaching around the right, change this.
-# The existance of this value is even more outrageous than the one above.
 window_width_offset = 16
 
 [REFRESH_RATE]

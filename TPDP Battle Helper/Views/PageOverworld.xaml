@@ -18,7 +18,10 @@
     <Grid>
 
         <Grid x:Name="main_left" Width="160" HorizontalAlignment="Left"/>
-        <Grid x:Name="main_right" Width="160" HorizontalAlignment="Right"/>
+        <Grid x:Name="main_right" Width="160" HorizontalAlignment="Right">
+            <Image x:Name="minimap" VerticalAlignment="Top" Source="/Resources/UI/map_unknown.png"/>
+            <Label x:Name="minimap_id" Content="000"/>
+        </Grid>
 
     </Grid>
 </Page>

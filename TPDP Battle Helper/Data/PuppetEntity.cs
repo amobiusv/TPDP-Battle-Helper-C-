@@ -19,7 +19,7 @@ namespace TPDP_Battle_Helper.Data
             PuppetStyle = style;
         }
 
-        public static PuppetEntity? FindPuppet(short puppetId, byte styleIdx)
+        public static PuppetEntity? FindPuppet(ushort puppetId, byte styleIdx)
         {
             if (!PuppetDex.PuppetList.ContainsKey(puppetId)) return null;
             PuppetDexEntry puppet = PuppetDex.PuppetList[puppetId];

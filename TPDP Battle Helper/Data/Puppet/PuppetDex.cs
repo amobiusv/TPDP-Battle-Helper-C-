@@ -6,7 +6,7 @@ namespace TPDP_Battle_Helper.Data.Dex
     internal class PuppetDex
     {
 
-        public static readonly Dictionary<short, PuppetDexEntry> PuppetList = [];
+        public static readonly Dictionary<ushort, PuppetDexEntry> PuppetList = [];
 
         public static void Init()
         {
@@ -20,7 +20,7 @@ namespace TPDP_Battle_Helper.Data.Dex
             {
                 if (node.NodeType == XmlNodeType.Element)
                 {
-                    short puppetId = Convert.ToInt16(node.Attributes["id"].Value, 16);
+                    ushort puppetId = (ushort) Convert.ToInt16(node.Attributes["id"].Value, 16);
                     PuppetDexEntry entry = new PuppetDexEntry(node);
                     PuppetList.Add(puppetId, entry);
                 }

@@ -182,5 +182,31 @@ namespace TPDP_Battle_Helper.Data
             return result.ToArray();
         }
 
+        public double AttackMultiplierAgainst(ElementalType type)
+        {
+
+            if (OffensivelyIsStrongAgainst().Contains(type))
+                return 2;
+
+            if (OffensivelyIsIneffectiveAgainst().Contains(type))
+                return 0.5;
+
+            if (OffensivelyIsUselessAgainst().Contains(type))
+                return 0;
+
+            return 1;
+        }
+
+        public double AttackMultiplierAgainst(ElementalType? type1, ElementalType? type2)
+        {
+            
+            double result = 1;
+            if (type1 != null) result *= AttackMultiplierAgainst(type1);
+            if (type2 != null) result *= AttackMultiplierAgainst(type2);
+
+            return result;
+
+        }
+
     }
 }
