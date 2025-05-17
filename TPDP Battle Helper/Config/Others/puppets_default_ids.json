@@ -1,0 +1,687 @@
+
+{
+    "REIMU": {
+        "id": 1,
+        "dex": 1
+    },
+    "MARISA": {
+        "id": 2, 
+        "dex": 2
+    },
+    "SHINGYOKU": {
+        "id": 3, 
+        "dex": 3
+    },
+    "MAGAN": {
+        "id": 4, 
+        "dex": 4
+    },
+    "ELIS": {
+        "id": 5, 
+        "dex": 5
+    },
+    "SARIEL": {
+        "id": 6, 
+        "dex": 6
+    },
+    "MIMA": {
+        "id": 7, 
+        "dex": 7
+    },
+    "KIKURI": {
+        "id": 8, 
+        "dex": 8
+    },
+    "KONNGARA": {
+        "id": 9, 
+        "dex": 9
+    },
+    "RIKA": {
+        "id": 10, 
+        "dex": 10
+    },
+    "MEIRA": {
+        "id": 12, 
+        "dex": 11
+    },
+    "ELLEN": {
+        "id": 14, 
+        "dex": 12
+    },
+    "KOTOHIME": {
+        "id": 15, 
+        "dex": 13
+    },
+    "KANA": {
+        "id": 16, 
+        "dex": 14
+    },
+    "RIKAKO": {
+        "id": 17, 
+        "dex": 15
+    },
+    "CHIYURI": {
+        "id": 18,
+        "dex": 16
+    },
+    "YUMEMI": {
+        "id": 19,
+        "dex": 17
+    },
+    "RUUKOTO": {
+        "id": 20,
+        "dex": 18
+    },
+    "ORANGE": {
+        "id": 21,
+        "dex": 19
+    },
+    "KURUMI": {
+        "id": 22,
+        "dex": 20
+    },
+    "ELLY": {
+        "id": 23,
+        "dex": 21
+    },
+    "YUUKA": {
+        "id": 25,
+        "dex": 22
+    },
+    "MUGETSU": {
+        "id": 26,
+        "dex": 23
+    },
+    "GENGETSU": {
+        "id": 27,
+        "dex": 24
+    },
+    "SARA": {
+        "id": 29,
+        "dex": 25
+    },
+    "LOUISE": {
+        "id": 30,
+        "dex": 26
+    },
+    "ALICE": {
+        "id": 31,
+        "dex": 27
+    },
+    "YUKI": {
+        "id": 32,
+        "dex": 28
+    },
+    "MAI": {
+        "id": 33,
+        "dex": 29
+    },
+    "YUMEKO": {
+        "id": 35,
+        "dex": 30
+    },
+    "SHINKI": {
+        "id": 36,
+        "dex": 31
+    },
+    "RUMIA": {
+        "id": 37,
+        "dex": 32
+    },
+    "DAIYOUSEI": {
+        "id": 38,
+        "dex": 33
+    },
+    "CIRNO": {
+        "id": 39,
+        "dex": 34
+    },
+    "MEILING": {
+        "id": 40,
+        "dex": 35
+    },
+    "KOAKUMA": {
+        "id": 41,
+        "dex": 36
+    },
+    "PATCHOULI": {
+        "id": 42,
+        "dex": 37
+    },
+    "SAKUYA": {
+        "id": 43,
+        "dex": 38
+    },
+    "REMILIA": {
+        "id": 44,
+        "dex": 39
+    },
+    "FLANDRE": {
+        "id": 45,
+        "dex": 40
+    },
+    "LETTY": {
+        "id": 46,
+        "dex": 41
+    },
+    "CHEN": {
+        "id": 47,
+        "dex": 42
+    },
+    "LILY": {
+        "id": 48,
+        "dex": 43
+    },
+    "LYRICA": {
+        "id": 49,
+        "dex": 44
+    },
+    "MERLIN": {
+        "id": 50,
+        "dex": 45
+    },
+    "LUNASA": {
+        "id": 51,
+        "dex": 46
+    },
+    "YOUMU": {
+        "id": 52,
+        "dex": 47
+    },
+    "YUYUKO": {
+        "id": 53,
+        "dex": 48
+    },
+    "RAN": {
+        "id": 54,
+        "dex": 49
+    },
+    "YUKARI": {
+        "id": 55,
+        "dex": 50
+    },
+    "RENKO": {
+        "id": 56,
+        "dex": 51
+    },
+    "MARIBEL": {
+        "id": 57,
+        "dex": 52
+    },
+    "RINNOSUKE": {
+        "id": 58,
+        "dex": 53
+    },
+    "TOKIKO": {
+        "id": 59,
+        "dex": 54
+    },
+    "WRIGGLE": {
+        "id": 60,
+        "dex": 55
+    },
+    "MYSTIA": {
+        "id": 61,
+        "dex": 56
+    },
+    "KEINE": {
+        "id": 62,
+        "dex": 57
+    },
+    "TEWI": {
+        "id": 63,
+        "dex": 58
+    },
+    "UDONGE": {
+        "id": 64,
+        "dex": 59
+    },
+    "EIRIN": {
+        "id": 65,
+        "dex": 60
+    },
+    "KAGUYA": {
+        "id": 66,
+        "dex": 61
+    },
+    "MOKOU": {
+        "id": 67,
+        "dex": 62
+    },
+    "SUIKA": {
+        "id": 68,
+        "dex": 63
+    },
+    "SUNNY": {
+        "id": 69,
+        "dex": 64
+    },
+    "LUNA": {
+        "id": 70,
+        "dex": 65
+    },
+    "STAR": {
+        "id": 71,
+        "dex": 66
+    },
+    "MEDICINE": {
+        "id": 72,
+        "dex": 67
+    },
+    "AYA": {
+        "id": 73,
+        "dex": 68
+    },
+    "KOMACHI": {
+        "id": 74,
+        "dex": 69
+    },
+    "EIKI": {
+        "id": 75,
+        "dex": 70
+    },
+    "AKYUU": {
+        "id": 76,
+        "dex": 71
+    },
+    "YORIHIME": {
+        "id": 77,
+        "dex": 72
+    },
+    "TOYOHIME": {
+        "id": 78,
+        "dex": 73
+    },
+    "REISEN": {
+        "id": 79,
+        "dex": 74
+    },
+    "SHIZUHA": {
+        "id": 80,
+        "dex": 75
+    },
+    "MINORIKO": {
+        "id": 81,
+        "dex": 76
+    },
+    "HINA": {
+        "id": 82,
+        "dex": 77
+    },
+    "NITORI": {
+        "id": 83,
+        "dex": 78
+    },
+    "MOMIJI": {
+        "id": 84,
+        "dex": 79
+    },
+    "SANAE": {
+        "id": 85,
+        "dex": 80
+    },
+    "KANAKO": {
+        "id": 86,
+        "dex": 81
+    },
+    "SUWAKO": {
+        "id": 87,
+        "dex": 82
+    },
+    "IKU": {
+        "id": 88,
+        "dex": 83
+    },
+    "TENSHI": {
+        "id": 89,
+        "dex": 84
+    },
+    "KISUME": {
+        "id": 90,
+        "dex": 85
+    },
+    "YAMAME": {
+        "id": 91,
+        "dex": 86
+    },
+    "PARSEE": {
+        "id": 92,
+        "dex": 87
+    },
+    "YUUGI": {
+        "id": 93,
+        "dex": 88
+    },
+    "SATORI": {
+        "id": 94,
+        "dex": 89
+    },
+    "RIN": {
+        "id": 95,
+        "dex": 90
+    },
+    "UTSUHO": {
+        "id": 96,
+        "dex": 91
+    },
+    "KOISHI": {
+        "id": 97,
+        "dex": 92
+    },
+    "NAZRIN": {
+        "id": 98,
+        "dex": 93
+    },
+    "KOGASA": {
+        "id": 99,
+        "dex": 94
+    },
+    "ICHIRIN": {
+        "id": 100,
+        "dex": 95
+    },
+    "MURASA": {
+        "id": 101,
+        "dex": 96
+    },
+    "SHOU": {
+        "id": 102,
+        "dex": 97
+    },
+    "HIJIRI": {
+        "id": 103,
+        "dex": 98
+    },
+    "NUE": {
+        "id": 104,
+        "dex": 99
+    },
+    "HATATE": {
+        "id": 105,
+        "dex": 100
+    },
+    "KASEN": {
+        "id": 106,
+        "dex": 101
+    },
+    "KYOUKO": {
+        "id": 107,
+        "dex": 102
+    },
+    "YOSHIKA": {
+        "id": 108,
+        "dex": 103
+    },
+    "SEIGA": {
+        "id": 109,
+        "dex": 104
+    },
+    "TOJIKO": {
+        "id": 110,
+        "dex": 105
+    },
+    "FUTO": {
+        "id": 111,
+        "dex": 106
+    },
+    "MIKO": {
+        "id": 112,
+        "dex": 107
+    },
+    "MAMIZOU": {
+        "id": 113,
+        "dex": 108
+    },
+    "KOSUZU": {
+        "id": 114,
+        "dex": 109
+    },
+    "KOKORO": {
+        "id": 115,
+        "dex": 110
+    },
+    "WAKASAGI": {
+        "id": 116,
+        "dex": 111
+    },
+    "SEKIBANKI": {
+        "id": 117,
+        "dex": 112
+    },
+    "KAGEROU": {
+        "id": 118,
+        "dex": 113
+    },
+    "BENBEN": {
+        "id": 119,
+        "dex": 114
+    },
+    "YATSUHASHI": {
+        "id": 120,
+        "dex": 115
+    },
+    "SEIJA": {
+        "id": 121,
+        "dex": 116
+    },
+    "SUKUNA": {
+        "id": 122,
+        "dex": 117
+    },
+    "RAIKO": {
+        "id": 123,
+        "dex": 118
+    },
+    "SUMIREKO": {
+        "id": 124,
+        "dex": 119
+    },
+    "SEIRAN": {
+        "id": 125,
+        "dex": 120
+    },
+    "RINGO": {
+        "id": 126,
+        "dex": 121
+    },
+    "DOREMY": {
+        "id": 127,
+        "dex": 122
+    },
+    "SAGUME": {
+        "id": 128,
+        "dex": 123
+    },
+    "CLOWNPIECE": {
+        "id": 129,
+        "dex": 124
+    },
+    "JUNKO": {
+        "id": 130,
+        "dex": 125
+    },
+    "HECATIA": {
+        "id": 131,
+        "dex": 126
+    },
+    "DUMMY1": {
+        "id": 132,
+        "dex": 0
+    },
+    "DUMMY2": {
+        "id": 133,
+        "dex": 0
+    },
+    "DUMMY3": {
+        "id": 134,
+        "dex": 0
+    },
+    "DUMMY4": {
+        "id": 135,
+        "dex": 0
+    },
+    "DUMMY5": {
+        "id": 136,
+        "dex": 0
+    },
+    "DUMMY6": {
+        "id": 137,
+        "dex": 0
+    },
+    "DUMMY7": {
+        "id": 138,
+        "dex": 0
+    },
+    "DUMMY8": {
+        "id": 139,
+        "dex": 0
+    },
+    "YORIGAMI": {
+        "id": 140,
+        "dex": 127
+    },
+    "ETERNITY": {
+        "id": 141,
+        "dex": 128
+    },
+    "NEMUNO": {
+        "id": 142,
+        "dex": 129
+    },
+    "AUNN": {
+        "id": 143,
+        "dex": 130
+    },
+    "NARUMI": {
+        "id": 144,
+        "dex": 131
+    },
+    "TEIREIDA": {
+        "id": 145,
+        "dex": 132
+    },
+    "SATONO": {
+        "id": 146,
+        "dex": 133
+    },
+    "OKINA": {
+        "id": 147,
+        "dex": 134
+    },
+    "EIKA": {
+        "id": 148,
+        "dex": 135
+    },
+    "URUMI": {
+        "id": 149,
+        "dex": 136
+    },
+    "KUTAKA": {
+        "id": 150,
+        "dex": 137
+    },
+    "YACHIE": {
+        "id": 151,
+        "dex": 138
+    },
+    "MAYUMI": {
+        "id": 152,
+        "dex": 139
+    },
+    "KEIKI": {
+        "id": 153,
+        "dex": 140
+    },
+    "SAKI": {
+        "id": 154,
+        "dex": 141
+    },
+    "MIYOI": {
+        "id": 155,
+        "dex": 142
+    },
+    "MIKE": {
+        "id": 156,
+        "dex": 143
+    },
+    "TAKANE": {
+        "id": 157,
+        "dex": 144
+    },
+    "SANNYO": {
+        "id": 158,
+        "dex": 145
+    },
+    "MISUMARU": {
+        "id": 159,
+        "dex": 146
+    },
+    "TSUKASA": {
+        "id": 160,
+        "dex": 147
+    },
+    "MEGUMU": {
+        "id": 161,
+        "dex": 148
+    },
+    "CHIMATA": {
+        "id": 162,
+        "dex": 149
+    },
+    "MOMOYO": {
+        "id": 163,
+        "dex": 150
+    },
+    "YUUMA": {
+        "id": 164,
+        "dex": 151
+    },
+    "DOLL201": {
+        "id": 201,
+        "dex": 0
+    },
+    "DOLL202": {
+        "id": 202,
+        "dex": 0
+    },
+    "DOLL203": {
+        "id": 203,
+        "dex": 0
+    },
+    "DOLL204": {
+        "id": 204,
+        "dex": 0
+    },
+    "DOLL205": {
+        "id": 205,
+        "dex": 0
+    },
+    "ハクタクけいね": {
+        "id": 300,
+        "dex": 0
+    },
+    "ヘカティ青": {
+        "id": 301,
+        "dex": 0
+    },
+    "ヘカティ黄": {
+        "id": 302,
+        "dex": 0
+    },
+    "アタックりか": {
+        "id": 303,
+        "dex": 0
+    },
+    "本気ゆかり": {
+        "id": 304,
+        "dex": 0
+    },
+    "DOLL305": {
+        "id": 305,
+        "dex": 0
+    },
+    "テスト": {
+        "id": 511,
+        "dex": 0
+    }
+}

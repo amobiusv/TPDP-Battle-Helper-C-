@@ -1,0 +1,31 @@
+
+[MAIN]
+
+# Name of the title atop the window for the game
+# Can define a list of possible names in case modded or DLC change the title
+game_title = [
+	"TPDP Shard of Dreams",
+	"TPDP v1."
+]
+
+[DIMENSIONS]
+
+# The aspect ratio of the window generated.
+# Keep in mind the program was only really intended to work at 16:9, so other sizes might screw the layout.
+window_aspect_ratio = "16:9"
+
+# The height (in pixels) of the title bar.
+# If information is getting either cropped out or not reaching around the bottom, change this.
+titlebar_height = 40
+
+# Value to avoid info getting cropped on the right.
+# If information is getting either cropped out or not reaching around the right, change this.
+window_width_offset = 16
+
+[REFRESH_RATE]
+
+# The frequency with which the tool's position on the screen should be updated to match the game's position
+reposition_refresh_rate = 30
+
+# The frequency with which the content inside the tool should be refreshed
+content_refresh_rate = 30

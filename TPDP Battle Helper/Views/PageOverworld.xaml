@@ -1,0 +1,27 @@
+﻿<Page x:Name="page" x:Class="TPDP_Battle_Helper.Views.PageOverworld"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TPDP_Battle_Helper.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="600"
+      Title="PageOverworld">
+    <Page.Background>
+        <VisualBrush TileMode="Tile" Viewport="0,0,64,64" ViewportUnits="Absolute">
+            <VisualBrush.Visual>
+                <Image Source="/Resources/UI/background_blue.png"></Image>
+            </VisualBrush.Visual>
+        </VisualBrush>
+    </Page.Background>
+
+    <Grid>
+
+        <Grid x:Name="main_left" Width="160" HorizontalAlignment="Left"/>
+        <Grid x:Name="main_right" Width="160" HorizontalAlignment="Right">
+            <Image x:Name="minimap" VerticalAlignment="Top" Source="/Resources/UI/map_unknown.png"/>
+            <Label x:Name="minimap_id" Content="000"/>
+        </Grid>
+
+    </Grid>
+</Page>

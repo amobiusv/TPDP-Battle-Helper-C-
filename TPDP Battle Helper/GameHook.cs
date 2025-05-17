@@ -33,6 +33,10 @@ namespace TPDP_Battle_Helper
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool GetWindowRect(IntPtr hWnd, out Rectangle rect);
 
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+
         #endregion
 
         /* **** *
@@ -41,7 +45,7 @@ namespace TPDP_Battle_Helper
 
         #region Init
 
-        public static void Init(string windowName)
+        public static void Init(List<string> windowNames)
         {
 
             Process[] processList = Process.GetProcesses();
@@ -52,11 +56,17 @@ namespace TPDP_Battle_Helper
                 string processTitle = process.MainWindowTitle;
                 if (!String.IsNullOrEmpty(processTitle))
                 {
-                    if (processTitle.IndexOf(windowName) == 0)
+                    bool found = false;
+                    foreach (string windowName in windowNames)
                     {
-                        gameProcess = process;
-                        break;
+                        if (processTitle.IndexOf(windowName) == 0)
+                        {
+                            gameProcess = process;
+                            found = true;
+                            break;
+                        }
                     }
+                    if (found) break;
                 }
             }
 
@@ -66,6 +76,9 @@ namespace TPDP_Battle_Helper
                 gameHandle = Kernel32.OpenProcess((uint)(Kernel32.ProcessAccessFlags.VirtualMemoryRead | Kernel32.ProcessAccessFlags.QueryInformation), true, (uint) gameProcess.Id);
                 if (gameProcess.MainModule != null)
                     startAdress = gameProcess.MainModule.BaseAddress;
+                Rectangle rect = FindGameBounds();
+                if (gameProcess.MainWindowHandle != null)
+                    MoveWindow(gameProcess.MainWindowHandle, 0, 0, rect.Width, rect.Height, true);
             }
 
         }

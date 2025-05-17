@@ -12,14 +12,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Config\Puppets.xml" />
+    <None Remove="Config\**\*" />
+    <None Remove="Content\**\*" />
     <None Remove="Resources\**\*" />
-    <None Remove="Views\background_blue.png" />
-    <None Remove="Views\type_dream.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Config\Puppets.xml">
+    <Content Include="Config\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\**\*">
@@ -28,8 +30,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Views\background_blue.png" />
-    <Resource Include="Views\type_dream.png" />
+    <Content Remove="Content\Map\MapTemplate.pdn" />
+    <Content Remove="Content\Map\MapTemplate1.pdn" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Content\Map\MapTemplate.pdn">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Map\MapTemplate1.pdn">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Tomlyn" Version="0.17.0" />
   </ItemGroup>
 
 </Project>
