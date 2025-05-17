@@ -5,7 +5,7 @@
 # Can define a list of possible names in case modded or DLC change the title
 game_title = [
 	"TPDP Shard of Dreams",
-	"TPDP"
+	"TPDP v1."
 ]
 
 [DIMENSIONS]

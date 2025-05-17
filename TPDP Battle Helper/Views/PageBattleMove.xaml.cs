@@ -332,7 +332,7 @@ namespace TPDP_Battle_Helper.Views
             ReplaceEffectivenessImage(player_skill_3, damageMultiplier3, false);
 
             double? damageMultiplier4 = null;
-            if (skill4 != null && enemyPuppet != null && skill1.SkillCategory.Damaging)
+            if (skill4 != null && enemyPuppet != null && skill4.SkillCategory.Damaging)
                 damageMultiplier4 = skill4.SkillType.AttackMultiplierAgainst(enemyPuppet.PuppetStyle.Type1, enemyPuppet.PuppetStyle.Type2);
             ReplaceEffectivenessImage(player_skill_4, damageMultiplier4, true);
 
