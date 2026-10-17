@@ -21,10 +21,14 @@ namespace TPDP_Battle_Helper.Views
         private MainWindow mainWindow;
         public bool Active = false;
 
-        private PuppetEntity? LastPlayerPuppet = null;
-        private PuppetEntity? LastEnemyPuppet = null;
-
+        // 实时更新：缓存上一次真正显示出的原始值，用于变化检测。
+        // 不再缓存 PuppetEntity 对象——游戏内存里各字段更新并不同步
+        // （例如切换人形时 id 先变、技能 id 滞后一帧），用对象判等会漏刷新。
         private Rectangle? LastBounds = null;
+        private ushort lastPlayerId = 0, lastPlayerStyle = 0;
+        private ushort lastEnemyId = 0, lastEnemyStyle = 0;
+        private ushort lastSkill1 = 0, lastSkill2 = 0, lastSkill3 = 0, lastSkill4 = 0;
+        private bool lastPlayerValid = false, lastEnemyValid = false, lastSkillsValid = false;
 
         public PageBattleMove(MainWindow window)
         {
@@ -38,6 +42,7 @@ namespace TPDP_Battle_Helper.Views
         private void Loop(object sender, EventArgs e)
         {
             if (!Active) return;
+            if (!GameHook.IsHooked) return;
 
             // Delta Time
             double currentTime = new TimeSpan(DateTime.Now.Ticks).TotalMilliseconds;
@@ -48,60 +53,69 @@ namespace TPDP_Battle_Helper.Views
             // Reposition
             Rectangle bounds = GameHook.FindGameBounds();
             mainWindow.Reposition(bounds, page, main_left, main_right);
+            bool boundsChanged = LastBounds == null
+                || ((Rectangle)LastBounds).Width != bounds.Width
+                || ((Rectangle)LastBounds).Height != bounds.Height;
 
-            // Puppet addresses
-            byte battleContextMenu = GameHook.ReadAddress(0x93C164, 1)[0];
+            // === 实时读取：每帧都从内存取最新值 ===
 
-            // Get player puppet
-            uint playerPuppetAddress = 0xC59FDB;
-            byte[] playerPuppetIdTmp = GameHook.ReadAddress(playerPuppetAddress, 2);
+            // 我方人形
+            byte[] playerPuppetIdTmp = GameHook.ReadAddress(0xC59FDB, 2);
             ushort playerPuppetId = (ushort)(playerPuppetIdTmp[0] + playerPuppetIdTmp[1] * 0x0100);
-            byte playerPuppetStyleIdx = GameHook.ReadAddress(playerPuppetAddress + 0x02, 1)[0];
+            byte playerPuppetStyleIdx = GameHook.ReadAddress(0xC59FDB + 0x02, 1)[0];
             PuppetEntity? playerPuppet = PuppetEntity.FindPuppet(playerPuppetId, playerPuppetStyleIdx);
+            bool playerValid = playerPuppet != null;
 
-            bool playerRequiresUpdating = RequiresUpdating(playerPuppet, LastPlayerPuppet, bounds);
-            if (playerRequiresUpdating)
+            // 敌方人形
+            byte[] enemyPuppetIdTmp = GameHook.ReadAddress(0xC5A510, 2);
+            ushort enemyPuppetId = (ushort)(enemyPuppetIdTmp[0] + enemyPuppetIdTmp[1] * 0x0100);
+            byte enemyPuppetStyleIdx = GameHook.ReadAddress(0xC5A510 + 0x02, 1)[0];
+            PuppetEntity? enemyPuppet = PuppetEntity.FindPuppet(enemyPuppetId, enemyPuppetStyleIdx);
+            bool enemyValid = enemyPuppet != null;
+
+            // 我方技能（4 个）
+            ushort playerSkillId1 = ReadU16(0xC59FED);
+            ushort playerSkillId2 = ReadU16(0xC59FED + 0x02);
+            ushort playerSkillId3 = ReadU16(0xC59FED + 0x04);
+            ushort playerSkillId4 = ReadU16(0xC59FED + 0x06);
+            // 切换动画瞬间技能槽会短暂读成 0，视为瞬态，跳过更新以保留上一帧
+            bool skillsValid = playerSkillId1 != 0 && playerSkillId2 != 0 && playerSkillId3 != 0 && playerSkillId4 != 0;
+
+            // 变化检测：原始值变了才重绘（瞬态无效值跳过，避免空白闪烁/冻结）
+            bool playerChanged = boundsChanged || (playerValid && (!lastPlayerValid || playerPuppetId != lastPlayerId || playerPuppetStyleIdx != lastPlayerStyle));
+            bool enemyChanged  = boundsChanged || (enemyValid && (!lastEnemyValid || enemyPuppetId != lastEnemyId || enemyPuppetStyleIdx != lastEnemyStyle));
+            bool skillChanged  = boundsChanged || (skillsValid && (!lastSkillsValid || playerSkillId1 != lastSkill1 || playerSkillId2 != lastSkill2 || playerSkillId3 != lastSkill3 || playerSkillId4 != lastSkill4));
+
+            if (playerChanged && playerValid)
             {
-                if (playerPuppet != null)
-                    Debug.WriteLine("Displaying Player Puppet: " + playerPuppet.PuppetSpecies.PuppetName + " (" + playerPuppet.PuppetStyle.StyleName + ")");
+                Debug.WriteLine("Displaying Player Puppet: " + playerPuppet!.PuppetSpecies.PuppetName + " (" + playerPuppet.PuppetStyle.StyleName + ")");
                 SetPlayerTypes(playerPuppet);
                 SetPlayerWeaknesses(playerPuppet);
+                lastPlayerId = playerPuppetId;
+                lastPlayerStyle = playerPuppetStyleIdx;
+                lastPlayerValid = true;
             }
 
-            // Get enemy puppet
-            uint enemyPuppetAddress = 0xC5A510;
-            byte[] enemyPuppetIdTmp = GameHook.ReadAddress(enemyPuppetAddress, 2);
-            ushort enemyPuppetId = (ushort)(enemyPuppetIdTmp[0] + enemyPuppetIdTmp[1] * 0x0100);
-            byte enemyPuppetStyleIdx = GameHook.ReadAddress(enemyPuppetAddress + 0x02, 1)[0];
-            PuppetEntity? enemyPuppet = PuppetEntity.FindPuppet(enemyPuppetId, enemyPuppetStyleIdx);
-
-            bool enemyRequiresUpdating = RequiresUpdating(enemyPuppet, LastEnemyPuppet, bounds);
-            if (enemyRequiresUpdating)
+            if (enemyChanged && enemyValid)
             {
-                if (enemyPuppet != null)
-                    Debug.WriteLine("Displaying Enemy Puppet: " + enemyPuppet.PuppetSpecies.PuppetName + " (" + enemyPuppet.PuppetStyle.StyleName + ")");
+                Debug.WriteLine("Displaying Enemy Puppet: " + enemyPuppet!.PuppetSpecies.PuppetName + " (" + enemyPuppet.PuppetStyle.StyleName + ")");
                 SetEnemyTypes(enemyPuppet);
                 SetEnemyWeaknesses(enemyPuppet);
+                lastEnemyId = enemyPuppetId;
+                lastEnemyStyle = enemyPuppetStyleIdx;
+                lastEnemyValid = true;
             }
 
-            // Get player skills
-            uint playerSkillsAddress = 0xC59FED;
-            byte[] playerSkillIdTmp = GameHook.ReadAddress(playerSkillsAddress, 2);
-            ushort playerSkillId1 = (ushort)(playerSkillIdTmp[0] + playerSkillIdTmp[1] * 0x0100);
-            playerSkillIdTmp = GameHook.ReadAddress(playerSkillsAddress + 0x02, 2);
-            ushort playerSkillId2 = (ushort)(playerSkillIdTmp[0] + playerSkillIdTmp[1] * 0x0100);
-            playerSkillIdTmp = GameHook.ReadAddress(playerSkillsAddress + 0x04, 2);
-            ushort playerSkillId3 = (ushort)(playerSkillIdTmp[0] + playerSkillIdTmp[1] * 0x0100);
-            playerSkillIdTmp = GameHook.ReadAddress(playerSkillsAddress + 0x06, 2);
-            ushort playerSkillId4 = (ushort)(playerSkillIdTmp[0] + playerSkillIdTmp[1] * 0x0100);
-
-            if (playerRequiresUpdating || enemyRequiresUpdating)
+            // 技能倍率依赖「技能属性 × 敌方属性」，任一方变化都要重算
+            if ((skillChanged || enemyChanged) && skillsValid && enemyValid)
             {
-                if (playerPuppet != null)
-                    Debug.WriteLine("Displaying moves for Player Puppet: " + playerPuppet.PuppetSpecies.PuppetName + " (" + playerPuppet.PuppetStyle.StyleName + ")");
+                Debug.WriteLine("Displaying moves for Player Puppet: " + (playerPuppet?.PuppetSpecies.PuppetName ?? "?"));
                 SetPlayerSkills(enemyPuppet, playerSkillId1, playerSkillId2, playerSkillId3, playerSkillId4);
-                LastPlayerPuppet = playerPuppet;
-                LastEnemyPuppet = enemyPuppet;
+                lastSkill1 = playerSkillId1;
+                lastSkill2 = playerSkillId2;
+                lastSkill3 = playerSkillId3;
+                lastSkill4 = playerSkillId4;
+                lastSkillsValid = true;
             }
 
             LastBounds = bounds;
@@ -112,18 +126,10 @@ namespace TPDP_Battle_Helper.Views
 
         }
 
-        private bool RequiresUpdating(PuppetEntity? currentPuppet, PuppetEntity? expectedPuppet, Rectangle currentBounds)
+        private ushort ReadU16(uint offset)
         {
-
-            if (LastBounds == null) return true;
-            if (((Rectangle)LastBounds).Width != currentBounds.Width) return true;
-            if (((Rectangle)LastBounds).Height != currentBounds.Height) return true;
-
-            if (currentPuppet == null || expectedPuppet == null) return true;
-            if (expectedPuppet.PuppetSpecies.InternalId != currentPuppet.PuppetSpecies.InternalId) return true;
-            if (expectedPuppet.PuppetStyle.StyleId != currentPuppet.PuppetStyle.StyleId) return true;
-
-            return false;
+            byte[] b = GameHook.ReadAddress(offset, 2);
+            return (ushort)(b[0] + b[1] * 0x0100);
         }
 
         private void SetPlayerTypes(PuppetEntity? puppet)

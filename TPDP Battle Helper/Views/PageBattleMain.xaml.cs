@@ -16,15 +16,17 @@ namespace TPDP_Battle_Helper.Views
     {
 
         private double LastContentTime = 0;
-        private bool FlickerProtection = false;
 
         private MainWindow mainWindow;
         public bool Active = false;
 
-        private PuppetEntity? LastPlayerPuppet = null;
-        private PuppetEntity? LastEnemyPuppet = null;
-
+        // 实时更新：缓存上一次真正显示出的原始值，用于变化检测。
+        // 不再缓存 PuppetEntity 对象——游戏内存里各字段更新并不同步，
+        // 用对象判等会漏刷新导致面板冻结在旧人形上。
         private Rectangle? LastBounds = null;
+        private ushort lastPlayerId = 0, lastPlayerStyle = 0;
+        private ushort lastEnemyId = 0, lastEnemyStyle = 0;
+        private bool lastPlayerValid = false, lastEnemyValid = false;
 
         public PageBattleMain(MainWindow window)
         {
@@ -38,6 +40,7 @@ namespace TPDP_Battle_Helper.Views
         private void Loop(object sender, EventArgs e)
         {
             if (!Active) return;
+            if (!GameHook.IsHooked) return;
 
             // Delta Time
             double currentTime = new TimeSpan(DateTime.Now.Ticks).TotalMilliseconds;
@@ -48,55 +51,55 @@ namespace TPDP_Battle_Helper.Views
             // Reposition
             Rectangle bounds = GameHook.FindGameBounds();
             mainWindow.Reposition(bounds, page, main_left, main_right);
+            bool boundsChanged = LastBounds == null
+                || ((Rectangle)LastBounds).Width != bounds.Width
+                || ((Rectangle)LastBounds).Height != bounds.Height;
 
-            // Puppet addresses
-            byte battleContextMenu = GameHook.ReadAddress(0x93C164, 1)[0];
+            // === 实时读取：每帧都从内存取最新值 ===
+            // 0xC59FDB 始终保存当前出战人形（切换后也会立即更新，已对实机内存验证）。
+            // 这里不再使用 RequiresUpdating 的对象判等 + inMenu 门控，而是缓存
+            // 上一次真正显示的「原始值(id/style)」，只要原始值变了就重绘——
+            // 这样切人形、关技能页后回到主面板，都会显示当前在场的那只，而不是
+            // 启动时第一次显示的那只（旧逻辑在命令菜单 inMenu=true 期间会冻结重绘）。
 
-            // Get player puppet
-            uint playerPuppetAddress = 0xC59FDB;
-            if (battleContextMenu >= 10 && battleContextMenu < 20)
-            {
-                playerPuppetAddress = 0x8A4FD7;
-                FlickerProtection = true;
-            }
-            byte[] playerPuppetIdTmp = GameHook.ReadAddress(playerPuppetAddress, 2);
+            // 我方人形
+            byte[] playerPuppetIdTmp = GameHook.ReadAddress(0xC59FDB, 2);
             ushort playerPuppetId = (ushort)(playerPuppetIdTmp[0] + playerPuppetIdTmp[1] * 0x0100);
-            byte playerPuppetStyleIdx = GameHook.ReadAddress(playerPuppetAddress + 0x02, 1)[0];
+            byte playerPuppetStyleIdx = GameHook.ReadAddress(0xC59FDB + 0x02, 1)[0];
             PuppetEntity? playerPuppet = PuppetEntity.FindPuppet(playerPuppetId, playerPuppetStyleIdx);
+            bool playerValid = playerPuppet != null;
 
-            if (RequiresUpdating(playerPuppet, LastPlayerPuppet, bounds))
+            // 敌方人形
+            byte[] enemyPuppetIdTmp = GameHook.ReadAddress(0xC5A510, 2);
+            ushort enemyPuppetId = (ushort)(enemyPuppetIdTmp[0] + enemyPuppetIdTmp[1] * 0x0100);
+            byte enemyPuppetStyleIdx = GameHook.ReadAddress(0xC5A510 + 0x02, 1)[0];
+            PuppetEntity? enemyPuppet = PuppetEntity.FindPuppet(enemyPuppetId, enemyPuppetStyleIdx);
+            bool enemyValid = enemyPuppet != null;
+
+            // 变化检测：原始值变了才重绘（瞬态无效值跳过，保留上一帧，避免空白闪烁/冻结）
+            bool playerChanged = boundsChanged || (playerValid && (!lastPlayerValid || playerPuppetId != lastPlayerId || playerPuppetStyleIdx != lastPlayerStyle));
+            bool enemyChanged  = boundsChanged || (enemyValid && (!lastEnemyValid || enemyPuppetId != lastEnemyId || enemyPuppetStyleIdx != lastEnemyStyle));
+
+            if (playerChanged && playerValid)
             {
-                if (!FlickerProtection || LastPlayerPuppet == null)
-                {
-                    if (playerPuppet != null)
-                        Debug.WriteLine("Displaying Player Puppet: " + playerPuppet.PuppetSpecies.PuppetName + " (" + playerPuppet.PuppetStyle.StyleName + ")");
-                    SetPlayerTypes(playerPuppet);
-                    SetPlayerWeaknesses(playerPuppet);
-                    SetPlayerBaseStats(playerPuppet);
-                    LastPlayerPuppet = playerPuppet;
-                }
-                else
-                {
-                    LastPlayerPuppet = null;
-                    FlickerProtection = false;
-                }
+                Debug.WriteLine("Displaying Player Puppet: " + playerPuppet!.PuppetSpecies.PuppetName + " (" + playerPuppet.PuppetStyle.StyleName + ")");
+                SetPlayerTypes(playerPuppet);
+                SetPlayerWeaknesses(playerPuppet);
+                SetPlayerBaseStats(playerPuppet);
+                lastPlayerId = playerPuppetId;
+                lastPlayerStyle = playerPuppetStyleIdx;
+                lastPlayerValid = true;
             }
 
-            // Get enemy puppet
-            uint enemyPuppetAddress = 0xC5A510;
-            byte[] enemyPuppetIdTmp = GameHook.ReadAddress(enemyPuppetAddress, 2);
-            ushort enemyPuppetId = (ushort)(enemyPuppetIdTmp[0] + enemyPuppetIdTmp[1] * 0x0100);
-            byte enemyPuppetStyleIdx = GameHook.ReadAddress(enemyPuppetAddress + 0x02, 1)[0];
-            PuppetEntity? enemyPuppet = PuppetEntity.FindPuppet(enemyPuppetId, enemyPuppetStyleIdx);
-
-            if (RequiresUpdating(enemyPuppet, LastEnemyPuppet, bounds))
+            if (enemyChanged && enemyValid)
             {
-                if (enemyPuppet != null)
-                    Debug.WriteLine("Displaying Enemy Puppet: " + enemyPuppet.PuppetSpecies.PuppetName + " (" + enemyPuppet.PuppetStyle.StyleName + ")");
+                Debug.WriteLine("Displaying Enemy Puppet: " + enemyPuppet!.PuppetSpecies.PuppetName + " (" + enemyPuppet.PuppetStyle.StyleName + ")");
                 SetEnemyTypes(enemyPuppet);
                 SetEnemyWeaknesses(enemyPuppet);
                 SetEnemyBaseStats(enemyPuppet);
-                LastEnemyPuppet = enemyPuppet;
+                lastEnemyId = enemyPuppetId;
+                lastEnemyStyle = enemyPuppetStyleIdx;
+                lastEnemyValid = true;
             }
 
             LastBounds = bounds;
@@ -105,20 +108,6 @@ namespace TPDP_Battle_Helper.Views
             bool transitioned = mainWindow.ScreenTransition(this);
             if (transitioned) Active = true;
 
-        }
-
-        private bool RequiresUpdating(PuppetEntity? currentPuppet, PuppetEntity? expectedPuppet, Rectangle currentBounds)
-        {
-
-            if (LastBounds == null) return true;
-            if (((Rectangle)LastBounds).Width != currentBounds.Width) return true;
-            if (((Rectangle)LastBounds).Height != currentBounds.Height) return true;
-
-            if (currentPuppet == null || expectedPuppet == null) return true;
-            if (expectedPuppet.PuppetSpecies.InternalId != currentPuppet.PuppetSpecies.InternalId) return true;
-            if (expectedPuppet.PuppetStyle.StyleId != currentPuppet.PuppetStyle.StyleId) return true;
-
-            return false;
         }
 
         private void SetPlayerTypes(PuppetEntity? puppet)
