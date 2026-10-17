@@ -45,8 +45,26 @@ namespace TPDP_Battle_Helper
 
         #region Init
 
+        /// <summary>
+        /// True once we have successfully opened a handle to the game process.
+        /// Used by the render loop so it can safely no-op before the game is up.
+        /// </summary>
+        public static bool IsHooked => gameHandle != null;
+
         public static void Init(List<string> windowNames)
         {
+            // If we were previously hooked but the process has since exited,
+            // drop the now-stale handle. Otherwise IsHooked would stay true
+            // forever and we could never detect that the game closed.
+            if (gameHandle != null && (gameProcess == null || gameProcess.HasExited))
+            {
+                gameHandle = null;
+                gameProcess = null;
+                startAdress = -1;
+            }
+
+            // Already connected (and alive): don't re-open / re-move the window every tick.
+            if (IsHooked) return;
 
             Process[] processList = Process.GetProcesses();
 
@@ -97,7 +115,9 @@ namespace TPDP_Battle_Helper
 
         public static byte[] ReadAddress(uint address, uint length)
         {
-            if (gameHandle == null) return [];
+            // Game not running / not yet found: return a zero-filled buffer so
+            // callers indexing [0] don't throw and crash the render loop.
+            if (gameHandle == null) return new byte[(int)length];
 
             byte[] buffer = new byte[length];
             int bytesRead = 0;

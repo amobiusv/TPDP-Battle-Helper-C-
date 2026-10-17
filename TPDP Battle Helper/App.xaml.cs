@@ -1,6 +1,7 @@
 ﻿
 using System.IO;
 using System.Windows;
+using System.Windows.Threading;
 using Tomlyn;
 using Tomlyn.Model;
 using TPDP_Battle_Helper.Data;
@@ -16,6 +17,10 @@ namespace TPDP_Battle_Helper
     {
 
         public List<string> GAME_TITLES = new List<string>();
+
+        // Tracks whether the game was hooked on the previous reconnect tick, so we
+        // can detect the transition "was running -> now gone" and close the tool.
+        private bool _gameWasRunning = false;
 
         public static double ASPECT_RATIO;
         public static long TITLEBAR_HEIGHT;
@@ -36,6 +41,29 @@ namespace TPDP_Battle_Helper
 
             // Hook to the game
             GameHook.Init(GAME_TITLES);
+
+            // If the game isn't running yet (or the window title didn't match at
+            // startup), keep trying to attach on a timer so the helper connects
+            // as soon as the game is launched. Cheap no-op once already hooked.
+            DispatcherTimer hookTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(3)
+            };
+            hookTimer.Tick += (s, e) =>
+            {
+                bool wasRunning = _gameWasRunning;
+                GameHook.Init(GAME_TITLES);
+                bool isRunning = GameHook.IsHooked;
+                if (wasRunning && !isRunning)
+                {
+                    // The game was running and is now gone: shut the helper down
+                    // so it doesn't linger after the game closes.
+                    Application.Current.Shutdown();
+                    return;
+                }
+                _gameWasRunning = isRunning;
+            };
+            hookTimer.Start();
 
             base.OnStartup(e);
         }
