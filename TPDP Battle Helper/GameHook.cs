@@ -21,6 +21,23 @@ namespace TPDP_Battle_Helper
 
         protected static nint startAdress = -1;
 
+        /* ********* *
+         * ADDRESSES *
+         * ********* */
+
+        // Absolute VAs inside the game module, read as startAdress + value.
+        // Defaults were calibrated in-game on the AI-translated build
+        // (Shard of Dreams Extended, ver1.103-era exe). Different game builds
+        // (e.g. the 4.0 human-translated ver1.5 exe) shift these, so they can
+        // be overridden per-build from the [ADDRESSES] section of
+        // Config/AppSettings.toml — no recompile needed.
+        public static uint AddrBattleFlag = 0x93C0DF;        // u8: 0 overworld, !=0 in battle
+        public static uint AddrBattleContextMenu = 0x93C164; // u8: command menu 10-19, move menu 2, switch menu 100
+        public static uint AddrMapId = 0x9969BC;             // u16 overworld map id
+        public static uint AddrPlayerPuppet = 0xC59FDB;      // u16 active player puppet id, style byte at +2
+        public static uint AddrEnemyPuppet = 0xC5A510;       // u16 active enemy puppet id, style byte at +2
+        public static uint AddrPlayerSkills = 0xC59FED;      // 4 x u16 skill ids
+
         #endregion
 
         /* ******* *

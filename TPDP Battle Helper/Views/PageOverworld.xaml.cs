@@ -43,7 +43,7 @@ namespace TPDP_Battle_Helper.Views
             mainWindow.Reposition(bounds, page, main_left, main_right);
 
             // Get map id
-            byte[] mapIdTmp = GameHook.ReadAddress(0x9969BC, 2);
+            byte[] mapIdTmp = GameHook.ReadAddress(GameHook.AddrMapId, 2);
             ushort mapId = (ushort) (mapIdTmp[0] + mapIdTmp[1] * 0x0100);
 
             SetMinimapImage(mapId);

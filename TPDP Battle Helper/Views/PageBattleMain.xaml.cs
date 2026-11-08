@@ -63,16 +63,16 @@ namespace TPDP_Battle_Helper.Views
             // 启动时第一次显示的那只（旧逻辑在命令菜单 inMenu=true 期间会冻结重绘）。
 
             // 我方人形
-            byte[] playerPuppetIdTmp = GameHook.ReadAddress(0xC59FDB, 2);
+            byte[] playerPuppetIdTmp = GameHook.ReadAddress(GameHook.AddrPlayerPuppet, 2);
             ushort playerPuppetId = (ushort)(playerPuppetIdTmp[0] + playerPuppetIdTmp[1] * 0x0100);
-            byte playerPuppetStyleIdx = GameHook.ReadAddress(0xC59FDB + 0x02, 1)[0];
+            byte playerPuppetStyleIdx = GameHook.ReadAddress(GameHook.AddrPlayerPuppet + 0x02, 1)[0];
             PuppetEntity? playerPuppet = PuppetEntity.FindPuppet(playerPuppetId, playerPuppetStyleIdx);
             bool playerValid = playerPuppet != null;
 
             // 敌方人形
-            byte[] enemyPuppetIdTmp = GameHook.ReadAddress(0xC5A510, 2);
+            byte[] enemyPuppetIdTmp = GameHook.ReadAddress(GameHook.AddrEnemyPuppet, 2);
             ushort enemyPuppetId = (ushort)(enemyPuppetIdTmp[0] + enemyPuppetIdTmp[1] * 0x0100);
-            byte enemyPuppetStyleIdx = GameHook.ReadAddress(0xC5A510 + 0x02, 1)[0];
+            byte enemyPuppetStyleIdx = GameHook.ReadAddress(GameHook.AddrEnemyPuppet + 0x02, 1)[0];
             PuppetEntity? enemyPuppet = PuppetEntity.FindPuppet(enemyPuppetId, enemyPuppetStyleIdx);
             bool enemyValid = enemyPuppet != null;
 

@@ -93,6 +93,19 @@ namespace TPDP_Battle_Helper
             REPOSITION_REFRESH_RATE = (long)refreshRateSection["reposition_refresh_rate"];
             CONTENT_REFRESH_RATE = (long)refreshRateSection["content_refresh_rate"];
 
+            // Optional [ADDRESSES] section: per-game-build memory addresses
+            // (absolute VAs). Missing keys keep the built-in defaults, which
+            // match the AI-translated ver1.103-era build.
+            if (table.TryGetValue("ADDRESSES", out object? addrObj) && addrObj is TomlTable addrSection)
+            {
+                if (addrSection.TryGetValue("battle_flag", out object? v)) GameHook.AddrBattleFlag = Convert.ToUInt32(v);
+                if (addrSection.TryGetValue("battle_context_menu", out v)) GameHook.AddrBattleContextMenu = Convert.ToUInt32(v);
+                if (addrSection.TryGetValue("map_id", out v)) GameHook.AddrMapId = Convert.ToUInt32(v);
+                if (addrSection.TryGetValue("player_puppet", out v)) GameHook.AddrPlayerPuppet = Convert.ToUInt32(v);
+                if (addrSection.TryGetValue("enemy_puppet", out v)) GameHook.AddrEnemyPuppet = Convert.ToUInt32(v);
+                if (addrSection.TryGetValue("player_skills", out v)) GameHook.AddrPlayerSkills = Convert.ToUInt32(v);
+            }
+
         }
 
     }

@@ -60,24 +60,24 @@ namespace TPDP_Battle_Helper.Views
             // === 实时读取：每帧都从内存取最新值 ===
 
             // 我方人形
-            byte[] playerPuppetIdTmp = GameHook.ReadAddress(0xC59FDB, 2);
+            byte[] playerPuppetIdTmp = GameHook.ReadAddress(GameHook.AddrPlayerPuppet, 2);
             ushort playerPuppetId = (ushort)(playerPuppetIdTmp[0] + playerPuppetIdTmp[1] * 0x0100);
-            byte playerPuppetStyleIdx = GameHook.ReadAddress(0xC59FDB + 0x02, 1)[0];
+            byte playerPuppetStyleIdx = GameHook.ReadAddress(GameHook.AddrPlayerPuppet + 0x02, 1)[0];
             PuppetEntity? playerPuppet = PuppetEntity.FindPuppet(playerPuppetId, playerPuppetStyleIdx);
             bool playerValid = playerPuppet != null;
 
             // 敌方人形
-            byte[] enemyPuppetIdTmp = GameHook.ReadAddress(0xC5A510, 2);
+            byte[] enemyPuppetIdTmp = GameHook.ReadAddress(GameHook.AddrEnemyPuppet, 2);
             ushort enemyPuppetId = (ushort)(enemyPuppetIdTmp[0] + enemyPuppetIdTmp[1] * 0x0100);
-            byte enemyPuppetStyleIdx = GameHook.ReadAddress(0xC5A510 + 0x02, 1)[0];
+            byte enemyPuppetStyleIdx = GameHook.ReadAddress(GameHook.AddrEnemyPuppet + 0x02, 1)[0];
             PuppetEntity? enemyPuppet = PuppetEntity.FindPuppet(enemyPuppetId, enemyPuppetStyleIdx);
             bool enemyValid = enemyPuppet != null;
 
             // 我方技能（4 个）
-            ushort playerSkillId1 = ReadU16(0xC59FED);
-            ushort playerSkillId2 = ReadU16(0xC59FED + 0x02);
-            ushort playerSkillId3 = ReadU16(0xC59FED + 0x04);
-            ushort playerSkillId4 = ReadU16(0xC59FED + 0x06);
+            ushort playerSkillId1 = ReadU16(GameHook.AddrPlayerSkills);
+            ushort playerSkillId2 = ReadU16(GameHook.AddrPlayerSkills + 0x02);
+            ushort playerSkillId3 = ReadU16(GameHook.AddrPlayerSkills + 0x04);
+            ushort playerSkillId4 = ReadU16(GameHook.AddrPlayerSkills + 0x06);
             // 切换动画瞬间技能槽会短暂读成 0，视为瞬态，跳过更新以保留上一帧
             bool skillsValid = playerSkillId1 != 0 && playerSkillId2 != 0 && playerSkillId3 != 0 && playerSkillId4 != 0;
 

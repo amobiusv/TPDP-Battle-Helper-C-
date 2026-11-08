@@ -60,8 +60,8 @@ namespace TPDP_Battle_Helper
 
         public bool ScreenTransition(Page page)
         {
-            bool inBattle = GameHook.ReadAddress(0x93C0DF, 1)[0] != 0x00;
-            byte battleContextMenu = GameHook.ReadAddress(0x93C164, 1)[0];
+            bool inBattle = GameHook.ReadAddress(GameHook.AddrBattleFlag, 1)[0] != 0x00;
+            byte battleContextMenu = GameHook.ReadAddress(GameHook.AddrBattleContextMenu, 1)[0];
 
             // BattleMain
             if (inBattle && battleContextMenu != 2)
